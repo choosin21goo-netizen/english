@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My English Work Log</title>
+  <style>
+    :root {
+      --bg: #f7f6f3;
+      --surface: #ffffff;
+      --primary: #2d6a4f;
+      --primary-light: #e8f5f0;
+      --accent: #e76f51;
+      --accent-light: #fdf0eb;
+      --navy: #1b3a5c;
+      --navy-light: #eaf0f8;
+      --gray: #6b7280;
+      --gray-light: #f3f4f6;
+      --border: #e5e7eb;
+      --text: #1a1a2e;
+      --text-sub: #6b7280;
+      --tag-phrasal: #7b2d8b;
+      --tag-phrasal-bg: #f3e8ff;
+      --tag-expr: #b45309;
+      --tag-expr-bg: #fef3c7;
+      --tag-term: #1d4ed8;
+      --tag-term-bg: #eff6ff;
+      --green: #16a34a;
+      --green-light: #dcfce7;
+      --red: #dc2626;
+      --red-light: #fee2e2;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 100; background: var(--navy); display: flex; align-items: center; padding: 0 32px; height: 52px; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
+    nav .logo { font-size: 14px; font-weight: 700; color: #fff; letter-spacing: 0.05em; margin-right: auto; opacity: 0.9; }
+    nav a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 13px; font-weight: 500; padding: 0 16px; height: 52px; display: flex; align-items: center; transition: color 0.2s, background 0.2s; border-bottom: 2px solid transparent; }
+    nav a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+    nav a.quiz-link { color: #fbbf24; font-weight: 700; }
+    nav a.quiz-link:hover { color: #fde68a; }
+
+    /* HERO */
+    .hero { background: linear-gradient(135deg, var(--navy) 0%, #2d6a4f 100%); color: white; padding: 60px 32px 52px; text-align: center; }
+    .hero h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 10px; }
+    .hero p { font-size: 15px; opacity: 0.75; max-width: 480px; margin: 0 auto; }
+    .hero .stats { display: flex; justify-content: center; gap: 32px; margin-top: 28px; }
+    .hero .stat { text-align: center; }
+    .hero .stat .num { font-size: 26px; font-weight: 800; display: block; }
+    .hero .stat .label { font-size: 12px; opacity: 0.65; text-transform: uppercase; letter-spacing: 0.06em; }
+
+    /* SEARCH */
+    .search-wrap { background: var(--surface); padding: 20px 32px; border-bottom: 1px solid var(--border); display: flex; justify-content: center; }
+    .search-wrap input { width: 100%; max-width: 520px; padding: 10px 18px; border: 1.5px solid var(--border); border-radius: 100px; font-size: 14px; outline: none; transition: border-color 0.2s; background: var(--bg); color: var(--text); }
+    .search-wrap input:focus { border-color: var(--primary); }
+
+    /* MAIN LAYOUT */
+    .container { max-width: 900px; margin: 0 auto; padding: 40px 24px 80px; }
+
+    /* SECTION */
+    .section { margin-bottom: 56px; }
+    .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+    .section-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .section-title { font-size: 20px; font-weight: 800; color: var(--text); letter-spacing: -0.01em; }
+    .section-sub { font-size: 13px; color: var(--text-sub); margin-bottom: 20px; margin-left: 48px; }
+
+    /* MEETING BLOCK */
+    .meeting-block { background: var(--surface); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 32px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+    .meeting-header { background: var(--navy); color: white; padding: 16px 24px; display: flex; align-items: center; gap: 12px; }
+    .meeting-header .badge { background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+    .meeting-header .title { font-size: 15px; font-weight: 700; }
+    .meeting-header .date { margin-left: auto; font-size: 12px; opacity: 0.6; }
+    .sub-tabs { display: flex; border-bottom: 1px solid var(--border); background: var(--gray-light); }
+    .sub-tab { padding: 10px 24px; font-size: 13px; font-weight: 600; color: var(--gray); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; user-select: none; }
+    .sub-tab.active { color: var(--navy); border-bottom-color: var(--navy); background: var(--surface); }
+    .sub-tab:hover:not(.active) { color: var(--text); background: var(--border); }
+    .tab-panel { display: none; padding: 24px; }
+    .tab-panel.active { display: block; }
+
+    /* VOCAB */
+    .vocab-cat-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-sub); margin: 24px 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+    .vocab-cat-label:first-child { margin-top: 0; }
+    .vocab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    @media (max-width: 600px) { .vocab-grid { grid-template-columns: 1fr; } }
+    .vocab-card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; transition: box-shadow 0.2s, border-color 0.2s; }
+    .vocab-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07); border-color: #c9d4e0; }
+    .vocab-card .word { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 3px; display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+    .vocab-card .meaning { font-size: 13px; color: var(--text); margin-bottom: 6px; }
+    .vocab-card .example { font-size: 12px; color: var(--gray); font-style: italic; line-height: 1.5; border-left: 2px solid var(--border); padding-left: 8px; margin-top: 6px; }
+    .vocab-card .tip { font-size: 11.5px; color: var(--primary); margin-top: 5px; background: var(--primary-light); border-radius: 6px; padding: 4px 8px; }
+    .tag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 100px; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; }
+    .tag.phrasal { background: var(--tag-phrasal-bg); color: var(--tag-phrasal); }
+    .tag.expr { background: var(--tag-expr-bg); color: var(--tag-expr); }
+    .tag.term { background: var(--tag-term-bg); color: var(--tag-term); }
+
+    /* PHRASES */
+    .phrase-list { display: flex; flex-direction: column; gap: 12px; }
+    .phrase-card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; transition: box-shadow 0.2s; }
+    .phrase-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
+    .phrase-card .phrase { font-size: 14.5px; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+    .phrase-card .situation { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+    .phrase-card .ko { font-size: 13px; color: var(--text); margin-bottom: 6px; }
+    .phrase-card .usage { font-size: 12.5px; color: var(--gray); font-style: italic; border-left: 2px solid var(--primary-light); padding-left: 10px; line-height: 1.5; }
+
+    /* DAILY ADD-ON */
+    .addon-block { background: var(--surface); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+    .addon-header { background: linear-gradient(135deg, var(--accent) 0%, #c1440e 100%); color: white; padding: 16px 24px; display: flex; align-items: center; gap: 10px; }
+    .addon-header .title { font-size: 15px; font-weight: 700; }
+    .addon-header .sub { font-size: 12px; opacity: 0.8; margin-left: auto; }
+    .addon-entry { padding: 20px 24px; border-bottom: 1px solid var(--border); }
+    .addon-entry:last-child { border-bottom: none; }
+    .addon-entry .date-pill { display: inline-block; font-size: 11px; font-weight: 700; color: var(--accent); background: var(--accent-light); border-radius: 100px; padding: 2px 10px; margin-bottom: 10px; letter-spacing: 0.04em; }
+    .addon-cards { display: flex; flex-direction: column; gap: 10px; }
+    .addon-card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+    .addon-card .phrase { font-size: 14px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+    .addon-card .ko { font-size: 13px; color: var(--text); margin-bottom: 6px; }
+    .addon-card .note { font-size: 12.5px; color: var(--gray); line-height: 1.55; }
+    .addon-card .usage { font-size: 12px; color: var(--gray); font-style: italic; border-left: 2px solid var(--accent-light); padding-left: 8px; margin-top: 8px; line-height: 1.5; }
+
+    /* ===================== QUIZ ===================== */
+    #quiz { scroll-margin-top: 60px; }
+    .quiz-wrapper { background: var(--surface); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.07); }
+    .quiz-top-bar { background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%); color: white; padding: 20px 28px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .quiz-top-bar h2 { font-size: 17px; font-weight: 800; }
+    .quiz-top-bar .quiz-desc { font-size: 13px; opacity: 0.8; }
+    .quiz-mode-btns { display: flex; gap: 8px; margin-left: auto; flex-wrap: wrap; }
+    .quiz-mode-btn { background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.3); color: white; border-radius: 100px; padding: 6px 16px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+    .quiz-mode-btn:hover, .quiz-mode-btn.active { background: white; color: #4f46e5; }
+
+    /* FILTER */
+    .quiz-filter { display: flex; gap: 8px; padding: 16px 28px; background: #f5f3ff; border-bottom: 1px solid var(--border); flex-wrap: wrap; align-items: center; }
+    .quiz-filter span { font-size: 12px; font-weight: 700; color: #6b7280; margin-right: 4px; }
+    .filter-btn { background: white; border: 1.5px solid var(--border); color: var(--gray); border-radius: 100px; padding: 4px 14px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .filter-btn:hover { border-color: #7c3aed; color: #7c3aed; }
+    .filter-btn.active { background: #7c3aed; border-color: #7c3aed; color: white; }
+
+    /* SCORE BAR */
+    .score-bar { display: flex; align-items: center; gap: 16px; padding: 12px 28px; background: white; border-bottom: 1px solid var(--border); font-size: 13px; }
+    .score-bar .score-label { font-weight: 600; color: var(--gray); }
+    .score-bar .score-num { font-weight: 800; color: var(--navy); font-size: 15px; }
+    .progress-track { flex: 1; height: 6px; background: var(--border); border-radius: 100px; overflow: hidden; max-width: 200px; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, #7c3aed, #4f46e5); border-radius: 100px; transition: width 0.4s ease; }
+    .btn-restart { margin-left: auto; background: var(--gray-light); border: none; color: var(--gray); border-radius: 100px; padding: 6px 14px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .btn-restart:hover { background: var(--border); color: var(--text); }
+
+    /* FLASHCARD */
+    .quiz-body { padding: 36px 28px; display: flex; flex-direction: column; align-items: center; min-height: 360px; justify-content: center; }
+    .card-counter { font-size: 12px; color: var(--text-sub); margin-bottom: 20px; letter-spacing: 0.04em; }
+    .flashcard-wrap { perspective: 1000px; width: 100%; max-width: 560px; margin-bottom: 28px; cursor: pointer; }
+    .flashcard { position: relative; width: 100%; height: 220px; transform-style: preserve-3d; transition: transform 0.5s ease; }
+    .flashcard.flipped { transform: rotateY(180deg); }
+    .card-face { position: absolute; inset: 0; border-radius: 18px; padding: 28px 32px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; backface-visibility: hidden; -webkit-backface-visibility: hidden; border: 2px solid var(--border); }
+    .card-front { background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%); border-color: #c4b5fd; }
+    .card-back { background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border-color: #6ee7b7; transform: rotateY(180deg); }
+    .card-front .card-type { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #7c3aed; margin-bottom: 12px; }
+    .card-front .card-word { font-size: 22px; font-weight: 800; color: #3730a3; line-height: 1.3; margin-bottom: 8px; }
+    .card-front .card-example { font-size: 12.5px; color: #6b7280; font-style: italic; line-height: 1.5; }
+    .card-front .tap-hint { font-size: 11px; color: #a78bfa; margin-top: 14px; }
+    .card-back .card-meaning { font-size: 18px; font-weight: 800; color: #064e3b; margin-bottom: 10px; line-height: 1.4; }
+    .card-back .card-tip { font-size: 12.5px; color: #047857; background: rgba(255,255,255,0.6); border-radius: 8px; padding: 6px 12px; line-height: 1.5; max-width: 400px; }
+
+    /* ANSWER BTNS */
+    .answer-btns { display: flex; gap: 12px; justify-content: center; }
+    .answer-btns button { padding: 12px 32px; border-radius: 100px; border: none; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px; }
+    .btn-wrong { background: var(--red-light); color: var(--red); }
+    .btn-wrong:hover { background: #fca5a5; }
+    .btn-right { background: var(--green-light); color: var(--green); }
+    .btn-right:hover { background: #86efac; }
+    .answer-btns.hidden { opacity: 0; pointer-events: none; }
+
+    /* MULTIPLE CHOICE */
+    .mc-question { font-size: 18px; font-weight: 800; color: var(--navy); text-align: center; margin-bottom: 8px; max-width: 520px; line-height: 1.4; }
+    .mc-context { font-size: 12.5px; color: var(--gray); font-style: italic; text-align: center; margin-bottom: 24px; max-width: 480px; }
+    .mc-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; max-width: 540px; }
+    @media (max-width: 480px) { .mc-options { grid-template-columns: 1fr; } }
+    .mc-option { background: var(--bg); border: 2px solid var(--border); border-radius: 12px; padding: 14px 18px; font-size: 13px; font-weight: 600; cursor: pointer; text-align: left; transition: all 0.2s; color: var(--text); }
+    .mc-option:hover:not(:disabled) { border-color: #7c3aed; background: #f5f3ff; color: #4f46e5; }
+    .mc-option.correct { background: var(--green-light); border-color: var(--green); color: var(--green); }
+    .mc-option.wrong { background: var(--red-light); border-color: var(--red); color: var(--red); }
+    .mc-option:disabled { cursor: default; }
+    .mc-next { margin-top: 20px; background: #7c3aed; color: white; border: none; border-radius: 100px; padding: 12px 32px; font-size: 14px; font-weight: 700; cursor: pointer; display: none; transition: background 0.2s; }
+    .mc-next:hover { background: #6d28d9; }
+
+    /* DONE SCREEN */
+    .quiz-done { text-align: center; padding: 40px 20px; }
+    .quiz-done .emoji { font-size: 56px; margin-bottom: 16px; }
+    .quiz-done h3 { font-size: 22px; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+    .quiz-done .result-score { font-size: 40px; font-weight: 900; color: #7c3aed; margin: 12px 0; }
+    .quiz-done p { font-size: 14px; color: var(--gray); margin-bottom: 24px; }
+    .quiz-done .btn-again { background: #7c3aed; color: white; border: none; border-radius: 100px; padding: 14px 36px; font-size: 15px; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+    .quiz-done .btn-again:hover { background: #6d28d9; }
+
+    /* HIDDEN */
+    .hidden { display: none !important; }
+    footer { text-align: center; padding: 32px; font-size: 12px; color: var(--text-sub); border-top: 1px solid var(--border); }
+
+    /* PASSWORD GATE */
+    #pw-gate {
+      position: fixed; inset: 0; z-index: 9999;
+      background: linear-gradient(135deg, var(--navy) 0%, #2d6a4f 100%);
+      display: flex; align-items: center; justify-content: center;
+    }
+    #pw-gate.hidden { display: none; }
+    .pw-box {
+      background: white; border-radius: 20px;
+      padding: 40px 36px; width: 100%; max-width: 360px;
+      text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .pw-box .pw-icon { font-size: 40px; margin-bottom: 12px; }
+    .pw-box h2 { font-size: 18px; font-weight: 800; color: var(--navy); margin-bottom: 6px; }
+    .pw-box p { font-size: 13px; color: var(--gray); margin-bottom: 24px; }
+    .pw-input-wrap { position: relative; margin-bottom: 12px; }
+    .pw-box input {
+      width: 100%; padding: 12px 44px 12px 16px;
+      border: 2px solid var(--border); border-radius: 12px;
+      font-size: 15px; outline: none; letter-spacing: 0.1em;
+      transition: border-color 0.2s; color: var(--text);
+    }
+    .pw-box input:focus { border-color: var(--navy); }
+    .pw-toggle {
+      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer; font-size: 16px; color: var(--gray);
+    }
+    .pw-box button.pw-submit {
+      width: 100%; padding: 13px; background: var(--navy);
+      color: white; border: none; border-radius: 12px;
+      font-size: 15px; font-weight: 700; cursor: pointer;
+      transition: background 0.2s; margin-bottom: 8px;
+    }
+    .pw-box button.pw-submit:hover { background: #152d47; }
+    .pw-error {
+      font-size: 12.5px; color: var(--red);
+      min-height: 18px; margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- PASSWORD GATE -->
+<div id="pw-gate">
+  <div class="pw-box">
+    <div class="pw-icon">🔒</div>
+    <h2>My English Work Log</h2>
+    <p>비밀번호를 입력해주세요</p>
+    <div class="pw-input-wrap">
+      <input type="password" id="pw-input" placeholder="Password" onkeydown="if(event.key==='Enter')checkPW()" />
+      <button class="pw-toggle" onclick="togglePW()" title="보기/숨기기">👁</button>
+    </div>
+    <div class="pw-error" id="pw-error"></div>
+    <button class="pw-submit" onclick="checkPW()">입장</button>
+  </div>
+</div>
+
+<nav>
+  <span class="logo">📘 My English Work Log</span>
+  <a href="#meeting-log">Meeting Log</a>
+  <a href="#daily-addon">Daily Add-on</a>
+  <a href="#quiz" class="quiz-link">🧠 Quiz</a>
+</nav>
+
+<div class="hero">
+  <h1>My English Work Log</h1>
+  <p>회의 녹취록과 업무 중 수집한 표현들을 카테고리별로 정리한 공간</p>
+  <div class="stats">
+    <div class="stat"><span class="num">31</span><span class="label">어휘 & 구동사</span></div>
+    <div class="stat"><span class="num">11</span><span class="label">회의 표현</span></div>
+    <div class="stat"><span class="num">2</span><span class="label">Daily Add-on</span></div>
+  </div>
+</div>
+
+<div class="search-wrap">
+  <input type="text" id="search" placeholder="🔍  표현이나 단어 검색..." oninput="handleSearch(this.value)" />
+</div>
+
+<div class="container">
+
+  <!-- ========== MEETING LOG ========== -->
+  <div class="section" id="meeting-log">
+    <div class="section-header">
+      <div class="section-icon" style="background:#eaf0f8;">🎙️</div>
+      <span class="section-title">Meeting Log</span>
+    </div>
+    <p class="section-sub">녹취록에서 추출한 핵심 어휘 + 실전 회의 표현</p>
+
+    <div class="meeting-block">
+      <div class="meeting-header">
+        <span class="badge">SKS Builder</span>
+        <span class="title">팀 미팅 — 웹사이트 유지관리, SOW 협상, Configurator 브리핑</span>
+        <span class="date">2026.04.16</span>
+      </div>
+      <div class="sub-tabs">
+        <div class="sub-tab active" onclick="switchTab(this,'vocab-0416')">🔤 주요 어휘</div>
+        <div class="sub-tab" onclick="switchTab(this,'phrases-0416')">💬 회의 표현</div>
+      </div>
+
+      <!-- VOCAB TAB -->
+      <div class="tab-panel active" id="vocab-0416">
+        <div class="vocab-cat-label">📌 비즈니스 용어 (Terms)</div>
+        <div class="vocab-grid">
+          <div class="vocab-card searchable"><div class="word">SOW <span class="tag term">Term</span></div><div class="meaning">업무 범위 계약서 (Statement of Work)</div><div class="example">"We have four SOWs and this one has ended."</div></div>
+          <div class="vocab-card searchable"><div class="word">Retainer <span class="tag term">Term</span></div><div class="meaning">장기 유지관리 계약 (월별/연별로 지속 계약)</div><div class="example">"the website retainer"</div></div>
+          <div class="vocab-card searchable"><div class="word">Scope <span class="tag term">Term</span></div><div class="meaning">업무 범위</div><div class="example">"adding her on the BPO scope"</div></div>
+          <div class="vocab-card searchable"><div class="word">Amendment <span class="tag term">Term</span></div><div class="meaning">계약 수정안, 부속 계약</div><div class="example">"they did sign the 2025 amendment"</div></div>
+          <div class="vocab-card searchable"><div class="word">Out-of-pocket cost <span class="tag term">Term</span></div><div class="meaning">직접 발생 비용, 실비</div><div class="example">"our only responsibility was the out-of-pocket cost at about $60K"</div></div>
+          <div class="vocab-card searchable"><div class="word">RFP <span class="tag term">Term</span></div><div class="meaning">제안 요청서 (Request for Proposal)</div><div class="example">"not like a traditional RFP where you're bidding it out to three people"</div></div>
+          <div class="vocab-card searchable"><div class="word">GP (Global Procurement) <span class="tag term">Term</span></div><div class="meaning">글로벌 구매팀 — 계약·가격 승인 권한 보유</div><div class="example">"GP has to do their process"</div></div>
+          <div class="vocab-card searchable"><div class="word">Brief <span class="tag term">Term</span></div><div class="meaning">프로젝트 지시서 (업무 요청 문서)</div><div class="example">"I have to put it in words into the brief"</div></div>
+          <div class="vocab-card searchable"><div class="word">Proof of performance <span class="tag term">Term</span></div><div class="meaning">성과 증빙 자료 (예산 사용 결산용)</div><div class="example">"it's called a proof of performance"</div></div>
+          <div class="vocab-card searchable"><div class="word">Fund reserve <span class="tag term">Term</span></div><div class="meaning">예비 예산 (계획된 지출을 위해 확보해둔 금액)</div><div class="example">"in my budget log, I have the fund reserve"</div></div>
+          <div class="vocab-card searchable"><div class="word">Internal transfer <span class="tag term">Term</span></div><div class="meaning">내부 이동 (타부서에서 온 직원)</div><div class="example">"she's an internal transfer, which is great"</div></div>
+          <div class="vocab-card searchable"><div class="word">Traffic (team) <span class="tag term">Term</span></div><div class="meaning">에이전시 내 리소스·일정 관리팀</div><div class="example">"I asked traffic — I'll get that for you"</div></div>
+          <div class="vocab-card searchable"><div class="word">Activity review <span class="tag term">Term</span></div><div class="meaning">활동 결산 보고 (예산 집행 내역 정리)</div><div class="example">"I have to do an activity review to close it out"</div></div>
+          <div class="vocab-card searchable"><div class="word">Configurator <span class="tag term">Term</span></div><div class="meaning">웹 기반 제품 커스터마이저 툴</div><div class="example">"Configurator 2.0"</div></div>
+          <div class="vocab-card searchable"><div class="word">Parallel path <span class="tag term">Term</span></div><div class="meaning">동시 병행 진행</div><div class="example">"we can parallel path that"</div></div>
+          <div class="vocab-card searchable"><div class="word">Fire drill <span class="tag term">Term</span></div><div class="meaning">갑작스러운 긴급 업무</div><div class="example">"we had some other fire drills with our department head"</div></div>
+        </div>
+
+        <div class="vocab-cat-label">🔁 구동사 (Phrasal Verbs)</div>
+        <div class="vocab-grid">
+          <div class="vocab-card searchable"><div class="word">close out <span class="tag phrasal">Phrasal</span></div><div class="meaning">마무리하다, 종결하다</div><div class="example">"I have to do an activity review to be able to close it out."</div><div class="tip">💡 "finish"보다 공식적 종결 뉘앙스</div></div>
+          <div class="vocab-card searchable"><div class="word">figure out <span class="tag phrasal">Phrasal</span></div><div class="meaning">파악하다, 알아내다</div><div class="example">"I'm trying to figure out when I need to jump in versus not."</div><div class="tip">💡 "understand"보다 더 적극적인 탐색 뉘앙스</div></div>
+          <div class="vocab-card searchable"><div class="word">jump in <span class="tag phrasal">Phrasal</span></div><div class="meaning">바로 끼어들다, 개입하다</div><div class="example">"I didn't really jump in as much because GP handles it."</div></div>
+          <div class="vocab-card searchable"><div class="word">step in <span class="tag phrasal">Phrasal</span></div><div class="meaning">개입하다, 나서다 (공식적·의도적 개입)</div><div class="example">"I need to step in and figure out what's going on."</div><div class="tip">💡 jump in보다 더 무게감 있는 개입</div></div>
+          <div class="vocab-card searchable"><div class="word">bump up <span class="tag phrasal">Phrasal</span></div><div class="meaning">올리다, 높이다</div><div class="example">"Maybe I should have bumped that up knowing they'd ask for a discount."</div></div>
+          <div class="vocab-card searchable"><div class="word">layer in <span class="tag phrasal">Phrasal</span></div><div class="meaning">추가로 얹다, 단계적으로 덧붙이다</div><div class="example">"We can layer in her packages."</div><div class="tip">💡 기존 위에 쌓아올리는 느낌</div></div>
+          <div class="vocab-card searchable"><div class="word">swap out <span class="tag phrasal">Phrasal</span></div><div class="meaning">교체하다, 바꾸다</div><div class="example">"Swapping out the product, you need the packages."</div><div class="tip">💡 "replace"보다 캐주얼하고 실무에서 자주 씀</div></div>
+          <div class="vocab-card searchable"><div class="word">hand over / hand off <span class="tag phrasal">Phrasal</span></div><div class="meaning">넘겨주다, 인계하다</div><div class="example">"I'm going to hand that over to Amy."</div></div>
+          <div class="vocab-card searchable"><div class="word">fill in <span class="tag phrasal">Phrasal</span></div><div class="meaning">① 빠진 부분을 채우다 ② 누군가를 대신하다</div><div class="example">"Can you fill in for SKS?" / "fill in the brief"</div></div>
+          <div class="vocab-card searchable"><div class="word">reach out <span class="tag phrasal">Phrasal</span></div><div class="meaning">먼저 연락하다</div><div class="example">"I'm going to reach out to Samuel."</div><div class="tip">💡 비즈니스 영어 필수 표현</div></div>
+          <div class="vocab-card searchable"><div class="word">carve out <span class="tag phrasal">Phrasal</span></div><div class="meaning">바쁜 중에 시간을 내다</div><div class="example">"It's just carving out the time to do it."</div></div>
+          <div class="vocab-card searchable"><div class="word">throw (it) into <span class="tag phrasal">Phrasal</span></div><div class="meaning">(AI·툴 등에) 넣다, 돌리다</div><div class="example">"I throw it into my AI of choice."</div></div>
+          <div class="vocab-card searchable"><div class="word">pull <span class="tag phrasal">Phrasal</span></div><div class="meaning">(정보·데이터를) 가져오다</div><div class="example">"Pull these two emails and make the brief."</div></div>
+          <div class="vocab-card searchable"><div class="word">come up on <span class="tag phrasal">Phrasal</span></div><div class="meaning">(마감이) 다가오다</div><div class="example">"We are coming up on the deadline with no signed scope."</div></div>
+          <div class="vocab-card searchable"><div class="word">put my head down <span class="tag phrasal">Phrasal</span></div><div class="meaning">집중해서 묵묵히 일하다</div><div class="example">"I'll just put my head down and work through what I can."</div></div>
+        </div>
+
+        <div class="vocab-cat-label">🧠 고급 표현 (Advanced Expressions)</div>
+        <div class="vocab-grid">
+          <div class="vocab-card searchable"><div class="word">manage expectations <span class="tag expr">Expression</span></div><div class="meaning">기대치를 조율하다, 관리하다</div><div class="example">"I feel like we need to manage expectations around the timing."</div><div class="tip">💡 상대가 너무 많이 기대하지 않도록 미리 조율</div></div>
+          <div class="vocab-card searchable"><div class="word">squared away <span class="tag expr">Expression</span></div><div class="meaning">깔끔하게 정리된, 해결된</div><div class="example">"Until we have that sort of squared away..."</div></div>
+          <div class="vocab-card searchable"><div class="word">back and forth <span class="tag expr">Expression</span></div><div class="meaning">주고받기, 왔다갔다하는 소통</div><div class="example">"The back and forth Samuel and I were having."</div></div>
+          <div class="vocab-card searchable"><div class="word">to a T <span class="tag expr">Expression</span></div><div class="meaning">정확히, 딱 맞게</div><div class="example">"The cost is to a T of what the work will be."</div><div class="tip">💡 "exactly" 대신 쓰면 훨씬 자연스러움</div></div>
+          <div class="vocab-card searchable"><div class="word">morph (significantly) <span class="tag expr">Expression</span></div><div class="meaning">상당히 변화하다, 다른 형태로 바뀌다</div><div class="example">"It has morphed quite significantly over the years."</div></div>
+          <div class="vocab-card searchable"><div class="word">grow exponentially <span class="tag expr">Expression</span></div><div class="meaning">기하급수적으로 커지다</div><div class="example">"It has grown exponentially — from $60K to $320K."</div></div>
+          <div class="vocab-card searchable"><div class="word">be aligned with <span class="tag expr">Expression</span></div><div class="meaning">~와 방향이 맞다, 동의하다</div><div class="example">"Make sure that they're aligned with the work."</div></div>
+          <div class="vocab-card searchable"><div class="word">navigate (a situation) <span class="tag expr">Expression</span></div><div class="meaning">복잡한 상황을 헤쳐나가다</div><div class="example">"How are we going to navigate this conversation?"</div><div class="tip">💡 "deal with"보다 훨씬 세련된 표현</div></div>
+          <div class="vocab-card searchable"><div class="word">provide background <span class="tag expr">Expression</span></div><div class="meaning">배경 설명을 하다, 컨텍스트를 깔아주다</div><div class="example">"I could provide some background of how we got here."</div></div>
+          <div class="vocab-card searchable"><div class="word">a whole plethora of <span class="tag expr">Expression</span></div><div class="meaning">엄청나게 많은, 다양한</div><div class="example">"They give you a whole plethora of packages."</div></div>
+          <div class="vocab-card searchable"><div class="word">follow (her) lead <span class="tag expr">Expression</span></div><div class="meaning">~의 리드를 따르다</div><div class="example">"I'm following her lead on the Matterport."</div></div>
+          <div class="vocab-card searchable"><div class="word">surmise <span class="tag expr">Expression</span></div><div class="meaning">추측하다 (근거 있는 추측, 고급 어휘)</div><div class="example">"I'm surmising this based on the line of questioning."</div><div class="tip">💡 "guess"보다 훨씬 격식 있고 분석적인 뉘앙스</div></div>
+        </div>
+      </div>
+
+      <!-- PHRASES TAB -->
+      <div class="tab-panel" id="phrases-0416">
+        <div class="phrase-list">
+          <div class="phrase-card searchable"><div class="situation">⚡ 본론 전에 먼저 짚고 싶을 때</div><div class="phrase">"I just wanted to give that callout before we jump in."</div><div class="ko">본론으로 들어가기 전에 먼저 말씀드릴 게 있어요.</div><div class="usage">I just wanted to give that callout before we jump in — there's a timeline issue we need to be aware of.</div></div>
+          <div class="phrase-card searchable"><div class="situation">⏸️ 보류·일시 정지를 제안할 때</div><div class="phrase">"We're going to put a pause on that."</div><div class="ko">일단 그건 보류하려고 해요. (완전 취소는 아닌 뉘앙스)</div><div class="usage">The budget's not confirmed yet, so let's put a pause on the vendor conversation for now.</div></div>
+          <div class="phrase-card searchable"><div class="situation">🤔 확실하지 않은 의견을 낼 때</div><div class="phrase">"I'm surmising this based on the line of questioning."</div><div class="ko">질문들의 흐름을 보고 추측하건대...</div><div class="usage">I'm surmising this based on what I've seen, but I think they're looking for a price reduction.</div></div>
+          <div class="phrase-card searchable"><div class="situation">ℹ️ 상대가 몰랐을 정보를 알려줄 때</div><div class="phrase">"Just for your edification..."</div><div class="ko">참고로 말씀드리면... / 혹시 모르실까봐...</div><div class="usage">Just for your edification, the scope has actually grown from $60K to $320K since 2023.</div></div>
+          <div class="phrase-card searchable"><div class="situation">📍 중요 포인트를 강조하고 싶을 때</div><div class="phrase">"I just wanted to flag that." / "I wanted to call that out."</div><div class="ko">이 부분을 짚고 싶었어요.</div><div class="usage">I just wanted to flag that we still haven't received the signed SOW.</div></div>
+          <div class="phrase-card searchable"><div class="situation">🔀 두 작업을 동시에 진행하자고 할 때</div><div class="phrase">"We can parallel path that."</div><div class="ko">그건 동시에 병행해서 진행할 수 있어요.</div><div class="usage">You work on the builder brief and we can parallel path the SKS portion with Amy.</div></div>
+          <div class="phrase-card searchable"><div class="situation">🕐 당장 답 못 하고 유보할 때</div><div class="phrase">"I'll have that conversation and get back to you."</div><div class="ko">그 얘기 나눠보고 다시 연락드릴게요.</div><div class="usage">I'm not sure what Samuel's thinking yet — let me have that conversation and get back to you.</div></div>
+          <div class="phrase-card searchable"><div class="situation">🛎️ 선제적으로 정보를 공유할 때</div><div class="phrase">"Just in case it comes up, I want you to be in the know."</div><div class="ko">혹시 이슈가 생길 경우를 대비해서 미리 알려드려요.</div><div class="usage">Helen asked about Configurator 2.0 — just in case it comes up, I want you to be in the know.</div></div>
+          <div class="phrase-card searchable"><div class="situation">🎯 특정 관점에서 말할 때</div><div class="phrase">"From a business perspective..." / "From a pricing standpoint..."</div><div class="ko">비즈니스 관점에서 보면... / 가격 측면에서는...</div><div class="usage">From a business perspective, we can't wait any longer for the decision.</div></div>
+          <div class="phrase-card searchable"><div class="situation">✅ 적극적인 의지를 표현할 때</div><div class="phrase">"I'll make it a priority."</div><div class="ko">우선순위로 처리할게요.</div><div class="usage">I know you need the brief by Friday — I'll make it a priority this week.</div></div>
+          <div class="phrase-card searchable"><div class="situation">📊 현재 상황을 정리할 때</div><div class="phrase">"That's where we're at."</div><div class="ko">현재 상황이 그렇습니다.</div><div class="usage">We've submitted everything but haven't heard back from GP — that's where we're at.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== DAILY ADD-ON ========== -->
+  <div class="section" id="daily-addon">
+    <div class="section-header">
+      <div class="section-icon" style="background:#fdf0eb;">➕</div>
+      <span class="section-title">Daily Add-on</span>
+    </div>
+    <p class="section-sub">회의 녹취 외, 업무 중 귀로 줍거나 눈으로 배운 표현들</p>
+    <div class="addon-block">
+      <div class="addon-header">
+        <span class="title">📅 일별 수집 표현</span>
+        <span class="sub">계속 업데이트 중</span>
+      </div>
+      <div class="addon-entry">
+        <span class="date-pill">2026.04.17</span>
+        <div class="addon-cards">
+          <div class="addon-card searchable"><div class="phrase">"We can connect on Monday."</div><div class="ko">월요일에 얘기하자 / 월요일에 미팅 잡자</div><div class="note">"connect"를 동사로 사용. "meet"이나 "talk"보다 캐주얼하고 자연스럽게 미팅을 제안하는 표현. 이메일 마무리나 회의 말미에 딱 어울림.</div><div class="usage">"I'll pull together the numbers — we can connect on Monday to go over it."</div></div>
+          <div class="addon-card searchable"><div class="phrase">"It wasn't heart to heart."</div><div class="ko">진심이 통하지 않았다 / 진솔한 대화가 아니었다</div><div class="note">"heart to heart"는 진솔한 대화를 뜻하는 표현. 부정형으로 쓰면 소통의 진정성이 없었다는 뉘앙스.</div><div class="usage">"The meeting went fine on the surface, but it didn't feel very heart to heart."</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== QUIZ ========== -->
+  <div class="section" id="quiz">
+    <div class="section-header">
+      <div class="section-icon" style="background:#f5f3ff;">🧠</div>
+      <span class="section-title">Quiz</span>
+    </div>
+    <p class="section-sub">지금까지 배운 표현들을 테스트해보세요</p>
+
+    <div class="quiz-wrapper">
+      <div class="quiz-top-bar">
+        <div>
+          <h2>🧠 오늘의 퀴즈</h2>
+          <div class="quiz-desc">지금까지 모은 어휘와 표현 전체 출제</div>
+        </div>
+        <div class="quiz-mode-btns">
+          <button class="quiz-mode-btn active" onclick="setMode('flash')">📋 플래시카드</button>
+          <button class="quiz-mode-btn" onclick="setMode('mc')">🎯 객관식</button>
+        </div>
+      </div>
+
+      <div class="quiz-filter">
+        <span>출제 범위:</span>
+        <button class="filter-btn active" onclick="setFilter('all', this)">전체</button>
+        <button class="filter-btn" onclick="setFilter('term', this)">비즈니스 용어</button>
+        <button class="filter-btn" onclick="setFilter('phrasal', this)">구동사</button>
+        <button class="filter-btn" onclick="setFilter('expr', this)">고급 표현</button>
+        <button class="filter-btn" onclick="setFilter('phrase', this)">회의 표현</button>
+        <button class="filter-btn" onclick="setFilter('addon', this)">Daily Add-on</button>
+      </div>
+
+      <div class="score-bar">
+        <span class="score-label">정답</span>
+        <span class="score-num" id="score-right">0</span>
+        <span class="score-label" style="margin-left:12px;">오답</span>
+        <span class="score-num" id="score-wrong" style="color:#dc2626;">0</span>
+        <div class="progress-track" style="margin-left:16px;">
+          <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+        </div>
+        <span id="progress-text" style="font-size:12px;color:#6b7280;">0 / 0</span>
+        <button class="btn-restart" onclick="startQuiz()">↩ 다시 시작</button>
+      </div>
+
+      <!-- FLASHCARD MODE -->
+      <div class="quiz-body" id="flash-mode">
+        <div class="card-counter" id="card-counter">카드 1 / 44</div>
+        <div class="flashcard-wrap" onclick="flipCard()">
+          <div class="flashcard" id="flashcard">
+            <div class="card-face card-front">
+              <div class="card-type" id="fc-type">Phrasal Verb</div>
+              <div class="card-word" id="fc-word">close out</div>
+              <div class="card-example" id="fc-example">"I have to close it out by Friday."</div>
+              <div class="tap-hint">👆 클릭해서 정답 확인</div>
+            </div>
+            <div class="card-face card-back">
+              <div class="card-meaning" id="fc-meaning">마무리하다, 종결하다</div>
+              <div class="card-tip" id="fc-tip">💡 "finish"보다 공식적 종결 뉘앙스. 회계/프로젝트 마감에 자주 씀</div>
+            </div>
+          </div>
+        </div>
+        <div class="answer-btns hidden" id="answer-btns">
+          <button class="btn-wrong" onclick="markAnswer(false)">😅 다시 볼게요</button>
+          <button class="btn-right" onclick="markAnswer(true)">✅ 알았어요!</button>
+        </div>
+      </div>
+
+      <!-- MULTIPLE CHOICE MODE -->
+      <div class="quiz-body hidden" id="mc-mode">
+        <div class="card-counter" id="mc-counter">문제 1 / 44</div>
+        <div class="mc-question" id="mc-question">close out</div>
+        <div class="mc-context" id="mc-context">"I have to close it out by Friday."</div>
+        <div class="mc-options" id="mc-options"></div>
+        <button class="mc-next" id="mc-next" onclick="nextMC()">다음 문제 →</button>
+      </div>
+
+      <!-- DONE SCREEN -->
+      <div class="quiz-done hidden" id="quiz-done">
+        <div class="emoji" id="done-emoji">🎉</div>
+        <h3 id="done-title">퀴즈 완료!</h3>
+        <div class="result-score" id="done-score"></div>
+        <p id="done-msg"></p>
+        <button class="btn-again" onclick="startQuiz()">🔄 다시 풀기</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>My English Work Log · Updated 2026.04.17 · 녹취록이 생길 때마다 업데이트됩니다</footer>
+
+<script>
+// ===================== DATA =====================
+const QUIZ_DATA = [
+  // Terms
+  { type:'term', label:'비즈니스 용어', word:'SOW', meaning:'업무 범위 계약서 (Statement of Work)', example:'"We have four SOWs and this one has ended."', tip:'' },
+  { type:'term', label:'비즈니스 용어', word:'Retainer', meaning:'장기 유지관리 계약 (월별/연별 지속 계약)', example:'"the website retainer"', tip:'' },
+  { type:'term', label:'비즈니스 용어', word:'Scope', meaning:'업무 범위', example:'"adding her on the BPO scope"', tip:'' },
+  { type:'term', label:'비즈니스 용어', word:'Amendment', meaning:'계약 수정안, 부속 계약', example:'"they did sign the 2025 amendment"', tip:'' },
+  { type:'term', label:'비즈니스 용어', word:'Out-of-pocket cost', meaning:'직접 발생 비용, 실비', example:'"our only responsibility was the out-of-pocket cost at about $60K"', tip:'' },
+  { type:'term', label:'비즈니스 용어', word:'RFP (Request for Proposal)', meaning:'제안 요청서', example:'"not like a traditional RFP where you\'re bidding it out"', tip:'' },
+  { type:'term', label:'비즈니스 용어', word:'GP (Global Procurement)', meaning:'글로벌 구매팀 — 계약·가격 승인 권한 보유', example:'"GP has to do their process"', tip:'' },
+  { type:'term', label:'비즈니스 용어', word:'Brief', meaning:'프로젝트 지시서 (업무 요청 문서)', example:'"I have to put it in words into the brief"', tip:'' },
+  { type:'term', label:'비즈니스 용어', word:'Proof of performance', meaning:'성과 증빙 자료 (예산 사용 결산용)', example:'"it\'s called a proof of performance"', tip:'' },
+  { type:'term', label:'비즈니스 용어', word:'Fund reserve', meaning:'예비 예산 (확보해둔 금액)', example:'"in my budget log, I have the fund reserve"', tip:'' },
+  { type:'term', label:'비즈니스 용어', word:'Internal transfer', meaning:'내부 이동 (타부서에서 온 직원)', example:'"she\'s an internal transfer, which is great"', tip:'' },
+  { type:'term', label:'비즈니스 용어', word:'Traffic (team)', meaning:'에이전시 내 리소스·일정 관리팀', example:'"I asked traffic — I\'ll get that for you"', tip:'' },
+  { type:'term', label:'비즈니스 용어', word:'Activity review', meaning:'활동 결산 보고 (예산 집행 내역 정리)', example:'"I have to do an activity review to close it out"', tip:'' },
+  { type:'term', label:'비즈니스 용어', word:'Configurator', meaning:'웹 기반 제품 커스터마이저 툴', example:'"Configurator 2.0"', tip:'' },
+  { type:'term', label:'비즈니스 용어', word:'Parallel path', meaning:'동시 병행 진행', example:'"we can parallel path that"', tip:'' },
+  { type:'term', label:'비즈니스 용어', word:'Fire drill', meaning:'갑작스러운 긴급 업무', example:'"we had some other fire drills with our department head"', tip:'' },
+  // Phrasal
+  { type:'phrasal', label:'구동사', word:'close out', meaning:'마무리하다, 종결하다', example:'"I have to close it out by Friday."', tip:'"finish"보다 공식적 종결 뉘앙스' },
+  { type:'phrasal', label:'구동사', word:'figure out', meaning:'파악하다, 알아내다 (능동적으로)', example:'"I\'m trying to figure out when I need to jump in."', tip:'"understand"보다 더 적극적인 탐색 뉘앙스' },
+  { type:'phrasal', label:'구동사', word:'jump in', meaning:'바로 끼어들다, 개입하다', example:'"I didn\'t really jump in as much because GP handles it."', tip:'' },
+  { type:'phrasal', label:'구동사', word:'step in', meaning:'개입하다, 나서다 (공식적·의도적 개입)', example:'"I need to step in and figure out what\'s going on."', tip:'jump in보다 더 무게감 있는 개입' },
+  { type:'phrasal', label:'구동사', word:'bump up', meaning:'올리다, 높이다 (숫자·가격·순위 등)', example:'"Maybe I should have bumped that up."', tip:'' },
+  { type:'phrasal', label:'구동사', word:'layer in', meaning:'추가로 얹다, 단계적으로 덧붙이다', example:'"We can layer in her packages."', tip:'기존 위에 쌓아올리는 느낌' },
+  { type:'phrasal', label:'구동사', word:'swap out', meaning:'교체하다, 바꾸다', example:'"Swapping out the product, you need the packages."', tip:'"replace"보다 캐주얼하고 실무에서 자주 씀' },
+  { type:'phrasal', label:'구동사', word:'hand over / hand off', meaning:'넘겨주다, 인계하다', example:'"I\'m going to hand that over to Amy."', tip:'' },
+  { type:'phrasal', label:'구동사', word:'fill in', meaning:'① 빠진 부분을 채우다 ② 누군가를 대신하다', example:'"Can you fill in for SKS?"', tip:'' },
+  { type:'phrasal', label:'구동사', word:'reach out', meaning:'먼저 연락하다, 연락을 취하다', example:'"I\'m going to reach out to Samuel."', tip:'비즈니스 영어 필수 표현' },
+  { type:'phrasal', label:'구동사', word:'carve out', meaning:'바쁜 중에 시간을 내다', example:'"It\'s just carving out the time to do it."', tip:'' },
+  { type:'phrasal', label:'구동사', word:'throw (it) into', meaning:'(AI·툴 등에) 넣다, 돌리다', example:'"I throw it into my AI of choice."', tip:'' },
+  { type:'phrasal', label:'구동사', word:'pull', meaning:'(정보·데이터를) 가져오다, 끌어오다', example:'"Pull these two emails and make the brief."', tip:'' },
+  { type:'phrasal', label:'구동사', word:'come up on', meaning:'(마감이) 다가오다', example:'"We are coming up on the deadline."', tip:'' },
+  { type:'phrasal', label:'구동사', word:'put my head down', meaning:'집중해서 묵묵히 일하다', example:'"I\'ll just put my head down and work through it."', tip:'' },
+  // Expr
+  { type:'expr', label:'고급 표현', word:'manage expectations', meaning:'기대치를 조율하다, 관리하다', example:'"We need to manage expectations around the timing."', tip:'상대가 너무 많이 기대하지 않도록 미리 조율' },
+  { type:'expr', label:'고급 표현', word:'squared away', meaning:'깔끔하게 정리된, 해결된', example:'"Until we have that sort of squared away..."', tip:'' },
+  { type:'expr', label:'고급 표현', word:'back and forth', meaning:'주고받기, 왔다갔다하는 소통', example:'"The back and forth Samuel and I were having."', tip:'' },
+  { type:'expr', label:'고급 표현', word:'to a T', meaning:'정확히, 딱 맞게', example:'"The cost is to a T of what the work will be."', tip:'"exactly" 대신 쓰면 훨씬 자연스러움' },
+  { type:'expr', label:'고급 표현', word:'morph (significantly)', meaning:'상당히 변화하다, 다른 형태로 바뀌다', example:'"It has morphed quite significantly."', tip:'' },
+  { type:'expr', label:'고급 표현', word:'grow exponentially', meaning:'기하급수적으로 커지다', example:'"It has grown exponentially — from $60K to $320K."', tip:'' },
+  { type:'expr', label:'고급 표현', word:'be aligned with', meaning:'~와 방향이 맞다, 동의하다', example:'"Make sure that they\'re aligned with the work."', tip:'' },
+  { type:'expr', label:'고급 표현', word:'navigate (a situation)', meaning:'복잡한 상황을 헤쳐나가다', example:'"How are we going to navigate this?"', tip:'"deal with"보다 훨씬 세련된 표현' },
+  { type:'expr', label:'고급 표현', word:'provide background', meaning:'배경 설명을 하다', example:'"I could provide some background of how we got here."', tip:'' },
+  { type:'expr', label:'고급 표현', word:'a whole plethora of', meaning:'엄청나게 많은, 다양한', example:'"They give you a whole plethora of packages."', tip:'' },
+  { type:'expr', label:'고급 표현', word:'follow (her) lead', meaning:'~의 리드를 따르다', example:'"I\'m following her lead on the Matterport."', tip:'' },
+  { type:'expr', label:'고급 표현', word:'surmise', meaning:'추측하다 (근거 있는 추측)', example:'"I\'m surmising this based on the line of questioning."', tip:'"guess"보다 훨씬 격식 있고 분석적인 뉘앙스' },
+  // Phrases
+  { type:'phrase', label:'회의 표현', word:'"I just wanted to give that callout before we jump in."', meaning:'본론 전에 먼저 말씀드릴 게 있어요.', example:'본론에 들어가기 전 미리 이슈를 언급할 때', tip:'' },
+  { type:'phrase', label:'회의 표현', word:'"We\'re going to put a pause on that."', meaning:'일단 그건 보류하려고 해요.', example:'완전 취소는 아닌 일시 보류 뉘앙스', tip:'' },
+  { type:'phrase', label:'회의 표현', word:'"Just for your edification..."', meaning:'참고로 말씀드리면...', example:'상대가 몰랐을 정보를 알려줄 때', tip:'' },
+  { type:'phrase', label:'회의 표현', word:'"I just wanted to flag that."', meaning:'이 부분을 짚고 싶었어요.', example:'중요 포인트를 강조할 때', tip:'' },
+  { type:'phrase', label:'회의 표현', word:'"We can parallel path that."', meaning:'그건 동시에 병행해서 진행할 수 있어요.', example:'두 작업을 동시 진행하자고 할 때', tip:'' },
+  { type:'phrase', label:'회의 표현', word:'"I\'ll have that conversation and get back to you."', meaning:'그 얘기 나눠보고 다시 연락드릴게요.', example:'당장 답 못 하고 유보할 때', tip:'' },
+  { type:'phrase', label:'회의 표현', word:'"Just in case it comes up, I want you to be in the know."', meaning:'혹시 이슈가 될 경우를 대비해서 미리 알려드려요.', example:'선제적으로 정보를 공유할 때', tip:'' },
+  { type:'phrase', label:'회의 표현', word:'"From a business perspective..."', meaning:'비즈니스 관점에서 보면...', example:'특정 관점에서 의견을 낼 때', tip:'' },
+  { type:'phrase', label:'회의 표현', word:'"I\'ll make it a priority."', meaning:'우선순위로 처리할게요.', example:'적극적인 의지를 표현할 때', tip:'' },
+  { type:'phrase', label:'회의 표현', word:'"That\'s where we\'re at."', meaning:'현재 상황이 그렇습니다.', example:'현재 상황을 마무리 요약할 때', tip:'' },
+  // Add-on
+  { type:'addon', label:'Daily Add-on', word:'"We can connect on Monday."', meaning:'월요일에 얘기하자 / 미팅 잡자', example:'"connect"를 동사로. "meet"보다 캐주얼하고 자연스러움', tip:'' },
+  { type:'addon', label:'Daily Add-on', word:'"It wasn\'t heart to heart."', meaning:'진심이 통하지 않았다 / 진솔한 대화가 아니었다', example:'소통의 진정성이 없었다는 뉘앙스', tip:'' },
+];
+
+// ===================== STATE =====================
+let mode = 'flash';
+let filter = 'all';
+let deck = [];
+let idx = 0;
+let rightCount = 0;
+let wrongCount = 0;
+let flipped = false;
+
+function getFilteredDeck() {
+  if (filter === 'all') return shuffle([...QUIZ_DATA]);
+  return shuffle(QUIZ_DATA.filter(d => d.type === filter));
+}
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('.quiz-mode-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  startQuiz();
+}
+
+function setFilter(f, btn) {
+  filter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  startQuiz();
+}
+
+function startQuiz() {
+  deck = getFilteredDeck();
+  idx = 0; rightCount = 0; wrongCount = 0; flipped = false;
+  updateScoreBar();
+  document.getElementById('quiz-done').classList.add('hidden');
+  if (mode === 'flash') {
+    document.getElementById('flash-mode').classList.remove('hidden');
+    document.getElementById('mc-mode').classList.add('hidden');
+    showFlashcard();
+  } else {
+    document.getElementById('flash-mode').classList.add('hidden');
+    document.getElementById('mc-mode').classList.remove('hidden');
+    showMC();
+  }
+}
+
+// ===================== FLASHCARD =====================
+function showFlashcard() {
+  if (idx >= deck.length) { showDone(); return; }
+  const card = deck[idx];
+  flipped = false;
+  const fc = document.getElementById('flashcard');
+  fc.classList.remove('flipped');
+  document.getElementById('fc-type').textContent = card.label;
+  document.getElementById('fc-word').textContent = card.word;
+  document.getElementById('fc-example').textContent = card.example || '';
+  document.getElementById('fc-meaning').textContent = card.meaning;
+  document.getElementById('fc-tip').textContent = card.tip ? '💡 ' + card.tip : '';
+  document.getElementById('answer-btns').classList.add('hidden');
+  document.getElementById('card-counter').textContent = `카드 ${idx + 1} / ${deck.length}`;
+}
+
+function flipCard() {
+  if (flipped) return;
+  flipped = true;
+  document.getElementById('flashcard').classList.add('flipped');
+  document.getElementById('answer-btns').classList.remove('hidden');
+}
+
+function markAnswer(correct) {
+  if (correct) rightCount++; else wrongCount++;
+  idx++;
+  updateScoreBar();
+  showFlashcard();
+}
+
+// ===================== MULTIPLE CHOICE =====================
+function showMC() {
+  if (idx >= deck.length) { showDone(); return; }
+  const card = deck[idx];
+  document.getElementById('mc-counter').textContent = `문제 ${idx + 1} / ${deck.length}`;
+  document.getElementById('mc-question').textContent = card.word;
+  document.getElementById('mc-context').textContent = card.example || '';
+  document.getElementById('mc-next').style.display = 'none';
+
+  // Generate 4 options including correct
+  const others = QUIZ_DATA.filter(d => d.meaning !== card.meaning);
+  const wrongOpts = shuffle(others).slice(0, 3).map(d => d.meaning);
+  const options = shuffle([card.meaning, ...wrongOpts]);
+
+  const container = document.getElementById('mc-options');
+  container.innerHTML = '';
+  options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'mc-option';
+    btn.textContent = opt;
+    btn.onclick = () => selectMC(btn, opt, card.meaning);
+    container.appendChild(btn);
+  });
+}
+
+function selectMC(btn, selected, correct) {
+  document.querySelectorAll('.mc-option').forEach(b => { b.disabled = true; });
+  if (selected === correct) {
+    btn.classList.add('correct');
+    rightCount++;
+  } else {
+    btn.classList.add('wrong');
+    wrongCount++;
+    document.querySelectorAll('.mc-option').forEach(b => {
+      if (b.textContent === correct) b.classList.add('correct');
+    });
+  }
+  idx++;
+  updateScoreBar();
+  const nextBtn = document.getElementById('mc-next');
+  nextBtn.style.display = 'inline-block';
+  nextBtn.textContent = idx >= deck.length ? '결과 보기 →' : '다음 문제 →';
+}
+
+function nextMC() {
+  if (idx >= deck.length) { showDone(); return; }
+  showMC();
+}
+
+// ===================== SCORE & DONE =====================
+function updateScoreBar() {
+  document.getElementById('score-right').textContent = rightCount;
+  document.getElementById('score-wrong').textContent = wrongCount;
+  const total = deck.length;
+  const done = rightCount + wrongCount;
+  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = `${done} / ${total}`;
+}
+
+function showDone() {
+  document.getElementById('flash-mode').classList.add('hidden');
+  document.getElementById('mc-mode').classList.add('hidden');
+  document.getElementById('quiz-done').classList.remove('hidden');
+  const total = rightCount + wrongCount;
+  const pct = total > 0 ? Math.round((rightCount / total) * 100) : 0;
+  document.getElementById('done-score').textContent = `${rightCount} / ${total} (${pct}%)`;
+  let emoji = '😅', title = '조금 더 연습해봐요!', msg = '틀린 표현들을 다시 한번 보고 재도전해보세요.';
+  if (pct >= 90) { emoji = '🏆'; title = '완벽해요!'; msg = '모든 표현을 완전히 익혔어요. 대단해요!'; }
+  else if (pct >= 70) { emoji = '🎉'; title = '잘하고 있어요!'; msg = '조금만 더 하면 완벽하게 외울 수 있어요.'; }
+  else if (pct >= 50) { emoji = '💪'; title = '절반 이상 맞췄어요!'; msg = '꾸준히 하면 금방 늘어요. 다시 한번 도전해봐요.'; }
+  document.getElementById('done-emoji').textContent = emoji;
+  document.getElementById('done-title').textContent = title;
+  document.getElementById('done-msg').textContent = msg;
+}
+
+// ===================== SEARCH =====================
+function handleSearch(q) {
+  q = q.toLowerCase().trim();
+  document.querySelectorAll('.searchable').forEach(c => {
+    c.classList.toggle('hidden', q && !c.textContent.toLowerCase().includes(q));
+  });
+  if (q) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.style.display = 'block');
+  } else {
+    document.querySelectorAll('.tab-panel').forEach(p => p.style.display = '');
+  }
+}
+
+function switchTab(tabEl, panelId) {
+  const block = tabEl.closest('.meeting-block');
+  block.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+  block.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  tabEl.classList.add('active');
+  document.getElementById(panelId).classList.add('active');
+}
+
+// Init
+startQuiz();
+
+// ===================== PASSWORD =====================
+(function() {
+  if (sessionStorage.getItem('auth') === 'ok') {
+    document.getElementById('pw-gate').classList.add('hidden');
+  }
+})();
+
+function checkPW() {
+  const val = document.getElementById('pw-input').value;
+  const err = document.getElementById('pw-error');
+  if (val === 'hsad0417ads*') {
+    sessionStorage.setItem('auth', 'ok');
+    document.getElementById('pw-gate').classList.add('hidden');
+    err.textContent = '';
+  } else {
+    err.textContent = '❌ 비밀번호가 틀렸어요. 다시 입력해주세요.';
+    document.getElementById('pw-input').value = '';
+    document.getElementById('pw-input').focus();
+  }
+}
+
+function togglePW() {
+  const input = document.getElementById('pw-input');
+  input.type = input.type === 'password' ? 'text' : 'password';
+}
+</script>
+</body>
+</html>
