@@ -4,255 +4,225 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>My English Work Log</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
   <style>
     :root {
-      --bg: #f7f6f3;
-      --surface: #ffffff;
-      --primary: #2d6a4f;
-      --primary-light: #e8f5f0;
-      --accent: #e76f51;
-      --accent-light: #fdf0eb;
-      --navy: #1b3a5c;
-      --navy-light: #eaf0f8;
-      --gray: #6b7280;
-      --gray-light: #f3f4f6;
-      --border: #e5e7eb;
-      --text: #1a1a2e;
-      --text-sub: #6b7280;
-      --tag-phrasal: #7b2d8b;
-      --tag-phrasal-bg: #f3e8ff;
-      --tag-expr: #b45309;
-      --tag-expr-bg: #fef3c7;
-      --tag-term: #1d4ed8;
-      --tag-term-bg: #eff6ff;
-      --green: #16a34a;
-      --green-light: #dcfce7;
-      --red: #dc2626;
-      --red-light: #fee2e2;
+      --bg: #F2F4F6;
+      --surface: #FFFFFF;
+      --primary: #3182F6;
+      --primary-light: #EBF3FE;
+      --primary-dark: #1B64DA;
+      --accent: #00C471;
+      --accent-light: #E8FAF2;
+      --gray: #8B95A1;
+      --gray-light: #F8F9FA;
+      --border: #E5E8EB;
+      --text: #1B1C1E;
+      --text-sub: #8B95A1;
+      --green: #00C471;
+      --green-light: #E8FAF2;
+      --red: #F04452;
+      --red-light: #FEF0F1;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
     /* NAV */
-    nav { position: sticky; top: 0; z-index: 100; background: var(--navy); display: flex; align-items: center; padding: 0 32px; height: 52px; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
-    nav .logo { font-size: 14px; font-weight: 700; color: #fff; letter-spacing: 0.05em; margin-right: auto; opacity: 0.9; }
-    nav a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 13px; font-weight: 500; padding: 0 16px; height: 52px; display: flex; align-items: center; transition: color 0.2s, background 0.2s; border-bottom: 2px solid transparent; }
-    nav a:hover { color: #fff; background: rgba(255,255,255,0.08); }
-    nav a.quiz-link { color: #fbbf24; font-weight: 700; }
-    nav a.quiz-link:hover { color: #fde68a; }
+    nav { position: sticky; top: 0; z-index: 100; background: #fff; display: flex; align-items: center; padding: 0 28px; height: 56px; border-bottom: 1px solid var(--border); }
+    nav .logo { font-size: 15px; font-weight: 700; color: var(--text); margin-right: auto; letter-spacing: -0.02em; }
+    nav a { color: var(--gray); text-decoration: none; font-size: 13.5px; font-weight: 600; padding: 6px 12px; border-radius: 8px; transition: all 0.15s; }
+    nav a:hover { color: var(--text); background: var(--bg); }
+    nav a.quiz-link { color: var(--primary); }
+    nav a.quiz-link:hover { background: var(--primary-light); }
 
     /* HERO */
-    .hero { background: linear-gradient(135deg, var(--navy) 0%, #2d6a4f 100%); color: white; padding: 60px 32px 52px; text-align: center; }
-    .hero h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 10px; }
-    .hero p { font-size: 15px; opacity: 0.75; max-width: 480px; margin: 0 auto; }
-    .hero .stats { display: flex; justify-content: center; gap: 32px; margin-top: 28px; }
-    .hero .stat { text-align: center; }
-    .hero .stat .num { font-size: 26px; font-weight: 800; display: block; }
-    .hero .stat .label { font-size: 12px; opacity: 0.65; text-transform: uppercase; letter-spacing: 0.06em; }
+    .hero { background: #fff; border-bottom: 1px solid var(--border); padding: 52px 32px 44px; text-align: center; }
+    .hero h1 { font-size: 30px; font-weight: 800; letter-spacing: -0.03em; color: var(--text); margin-bottom: 8px; }
+    .hero p { font-size: 15px; color: var(--text-sub); max-width: 380px; margin: 0 auto; font-weight: 400; }
+    .hero .stats { display: flex; justify-content: center; gap: 0; margin-top: 32px; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; max-width: 360px; margin-left: auto; margin-right: auto; }
+    .hero .stat { text-align: center; padding: 16px 32px; flex: 1; border-right: 1px solid var(--border); }
+    .hero .stat:last-child { border-right: none; }
+    .hero .stat .num { font-size: 22px; font-weight: 800; display: block; color: var(--primary); letter-spacing: -0.02em; }
+    .hero .stat .label { font-size: 11px; color: var(--text-sub); font-weight: 500; margin-top: 2px; display: block; }
 
     /* SEARCH */
-    .search-wrap { background: var(--surface); padding: 20px 32px; border-bottom: 1px solid var(--border); display: flex; justify-content: center; }
-    .search-wrap input { width: 100%; max-width: 520px; padding: 10px 18px; border: 1.5px solid var(--border); border-radius: 100px; font-size: 14px; outline: none; transition: border-color 0.2s; background: var(--bg); color: var(--text); }
-    .search-wrap input:focus { border-color: var(--primary); }
+    .search-wrap { background: var(--bg); padding: 20px 24px; display: flex; justify-content: center; }
+    .search-wrap input { width: 100%; max-width: 520px; padding: 12px 20px; border: 1.5px solid var(--border); border-radius: 12px; font-size: 14px; outline: none; transition: all 0.15s; background: #fff; color: var(--text); font-family: inherit; font-weight: 500; }
+    .search-wrap input::placeholder { color: var(--text-sub); }
+    .search-wrap input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(49,130,246,0.1); }
 
-    /* MAIN LAYOUT */
-    .container { max-width: 900px; margin: 0 auto; padding: 40px 24px 80px; }
-
-    /* SECTION */
-    .section { margin-bottom: 56px; }
-    .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
-    .section-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-    .section-title { font-size: 20px; font-weight: 800; color: var(--text); letter-spacing: -0.01em; }
-    .section-sub { font-size: 13px; color: var(--text-sub); margin-bottom: 20px; margin-left: 48px; }
+    /* MAIN */
+    .container { max-width: 860px; margin: 0 auto; padding: 32px 24px 80px; }
+    .section { margin-bottom: 48px; }
+    .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+    .section-icon { font-size: 20px; }
+    .section-title { font-size: 19px; font-weight: 800; color: var(--text); letter-spacing: -0.02em; }
+    .section-sub { font-size: 13px; color: var(--text-sub); margin-bottom: 16px; margin-left: 30px; }
 
     /* MEETING BLOCK */
-    .meeting-block { background: var(--surface); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 32px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
-    .meeting-header { background: var(--navy); color: white; padding: 16px 24px; display: flex; align-items: center; gap: 12px; }
-    .meeting-header .badge { background: rgba(255,255,255,0.15); padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
-    .meeting-header .title { font-size: 15px; font-weight: 700; }
-    .meeting-header .date { margin-left: auto; font-size: 12px; opacity: 0.6; }
-    .sub-tabs { display: flex; border-bottom: 1px solid var(--border); background: var(--gray-light); }
-    .sub-tab { padding: 10px 24px; font-size: 13px; font-weight: 600; color: var(--gray); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; user-select: none; }
-    .sub-tab.active { color: var(--navy); border-bottom-color: var(--navy); background: var(--surface); }
-    .sub-tab:hover:not(.active) { color: var(--text); background: var(--border); }
-    .tab-panel { display: none; padding: 24px; }
+    .meeting-block { background: #fff; border-radius: 20px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+    .meeting-header { background: var(--bg); border-bottom: 1px solid var(--border); padding: 14px 20px; display: flex; align-items: center; gap: 10px; }
+    .meeting-header .badge { background: var(--primary-light); color: var(--primary); padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; }
+    .meeting-header .title { font-size: 14px; font-weight: 600; color: var(--text); }
+    .meeting-header .date { margin-left: auto; font-size: 12px; color: var(--text-sub); font-weight: 500; }
+    .sub-tabs { display: flex; border-bottom: 1px solid var(--border); background: #fff; padding: 0 8px; }
+    .sub-tab { padding: 12px 16px; font-size: 13px; font-weight: 600; color: var(--text-sub); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; user-select: none; margin-bottom: -1px; }
+    .sub-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+    .sub-tab:hover:not(.active) { color: var(--text); }
+    .tab-panel { display: none; padding: 20px; }
     .tab-panel.active { display: block; }
 
     /* VOCAB */
-    .vocab-cat-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-sub); margin: 24px 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+    .vocab-cat-label { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-sub); margin: 24px 0 10px; }
     .vocab-cat-label:first-child { margin-top: 0; }
-    .vocab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .vocab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     @media (max-width: 600px) { .vocab-grid { grid-template-columns: 1fr; } }
-    .vocab-card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; transition: box-shadow 0.2s, border-color 0.2s; }
-    .vocab-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07); border-color: #c9d4e0; }
-    .vocab-card .word { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 3px; display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
-    .vocab-card .meaning { font-size: 13px; color: var(--text); margin-bottom: 6px; }
-    .vocab-card .example { font-size: 13.5px; color: #4b5563; line-height: 1.6; border-left: 2px solid var(--border); padding-left: 10px; margin-top: 8px; }
-    .vocab-card .tip { font-size: 11.5px; color: var(--primary); margin-top: 5px; background: var(--primary-light); border-radius: 6px; padding: 4px 8px; }
+    .vocab-card { background: var(--bg); border-radius: 14px; padding: 14px 16px; transition: all 0.15s; border: 1px solid transparent; }
+    .vocab-card:hover { background: #fff; border-color: var(--border); box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    .vocab-card .word { font-size: 14.5px; font-weight: 700; color: var(--text); margin-bottom: 4px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; letter-spacing: -0.01em; }
+    .vocab-card .meaning { font-size: 13px; color: var(--text-sub); margin-bottom: 0; font-weight: 500; }
+    .vocab-card .example { font-size: 13px; color: #4B5563; line-height: 1.65; border-left: 2px solid var(--primary-light); padding-left: 10px; margin-top: 10px; }
+    .vocab-card .tip { font-size: 12px; color: var(--primary); margin-top: 8px; background: var(--primary-light); border-radius: 8px; padding: 5px 10px; font-weight: 500; }
     .tag { display: none; }
 
     /* PHRASES */
-    .phrase-list { display: flex; flex-direction: column; gap: 12px; }
-    .phrase-card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; transition: box-shadow 0.2s; }
-    .phrase-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
-    .phrase-card .phrase { font-size: 14.5px; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
-    .phrase-card .situation { font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
-    .phrase-card .ko { font-size: 13px; color: var(--text); margin-bottom: 6px; }
-    .phrase-card .usage { font-size: 12.5px; color: var(--gray); font-style: italic; border-left: 2px solid var(--primary-light); padding-left: 10px; line-height: 1.5; }
+    .phrase-list { display: flex; flex-direction: column; gap: 8px; }
+    .phrase-card { background: var(--bg); border-radius: 14px; padding: 16px 18px; transition: all 0.15s; border: 1px solid transparent; }
+    .phrase-card:hover { background: #fff; border-color: var(--border); box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    .phrase-card .situation { font-size: 11px; font-weight: 700; color: var(--primary); letter-spacing: 0.04em; margin-bottom: 5px; }
+    .phrase-card .phrase { font-size: 14.5px; font-weight: 700; color: var(--text); margin-bottom: 5px; letter-spacing: -0.01em; }
+    .phrase-card .ko { font-size: 13px; color: var(--text-sub); margin-bottom: 8px; font-weight: 500; }
+    .phrase-card .usage { font-size: 13px; color: #4B5563; border-left: 2px solid var(--primary-light); padding-left: 10px; line-height: 1.6; }
 
     /* DAILY ADD-ON */
-    .addon-block { background: var(--surface); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
-    .addon-header { background: linear-gradient(135deg, var(--accent) 0%, #c1440e 100%); color: white; padding: 16px 24px; display: flex; align-items: center; gap: 10px; }
-    .addon-header .title { font-size: 15px; font-weight: 700; }
-    .addon-header .sub { font-size: 12px; opacity: 0.8; margin-left: auto; }
-    .addon-entry { padding: 20px 24px; border-bottom: 1px solid var(--border); }
+    .addon-block { background: #fff; border-radius: 20px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+    .addon-header { background: var(--bg); border-bottom: 1px solid var(--border); padding: 14px 20px; display: flex; align-items: center; }
+    .addon-header .title { font-size: 14px; font-weight: 700; color: var(--text); }
+    .addon-header .sub { font-size: 12px; color: var(--text-sub); margin-left: auto; font-weight: 500; }
+    .addon-entry { padding: 18px 20px; border-bottom: 1px solid var(--border); }
     .addon-entry:last-child { border-bottom: none; }
-    .addon-entry .date-pill { display: inline-block; font-size: 11px; font-weight: 700; color: var(--accent); background: var(--accent-light); border-radius: 100px; padding: 2px 10px; margin-bottom: 10px; letter-spacing: 0.04em; }
-    .addon-cards { display: flex; flex-direction: column; gap: 10px; }
-    .addon-card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
-    .addon-card .phrase { font-size: 14px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
-    .addon-card .ko { font-size: 13px; color: var(--text); margin-bottom: 6px; }
-    .addon-card .note { font-size: 12.5px; color: var(--gray); line-height: 1.55; }
-    .addon-card .usage { font-size: 12px; color: var(--gray); font-style: italic; border-left: 2px solid var(--accent-light); padding-left: 8px; margin-top: 8px; line-height: 1.5; }
+    .addon-entry .date-pill { display: inline-block; font-size: 11px; font-weight: 700; color: var(--primary); background: var(--primary-light); border-radius: 100px; padding: 2px 10px; margin-bottom: 10px; }
+    .addon-cards { display: flex; flex-direction: column; gap: 8px; }
+    .addon-card { background: var(--bg); border-radius: 14px; padding: 14px 16px; }
+    .addon-card .phrase { font-size: 14.5px; font-weight: 700; color: var(--text); margin-bottom: 4px; letter-spacing: -0.01em; }
+    .addon-card .ko { font-size: 13px; color: var(--text-sub); margin-bottom: 6px; font-weight: 500; }
+    .addon-card .note { font-size: 13px; color: #4B5563; line-height: 1.6; }
+    .addon-card .usage { font-size: 13px; color: #4B5563; border-left: 2px solid var(--primary-light); padding-left: 8px; margin-top: 8px; line-height: 1.6; }
 
-    /* ===================== QUIZ ===================== */
+    /* QUIZ */
     #quiz { scroll-margin-top: 60px; }
-    .quiz-wrapper { background: var(--surface); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.07); }
-    .quiz-top-bar { background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%); color: white; padding: 20px 28px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-    .quiz-top-bar h2 { font-size: 17px; font-weight: 800; }
-    .quiz-top-bar .quiz-desc { font-size: 13px; opacity: 0.8; }
-    .quiz-mode-btns { display: flex; gap: 8px; margin-left: auto; flex-wrap: wrap; }
-    .quiz-mode-btn { background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.3); color: white; border-radius: 100px; padding: 6px 16px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
-    .quiz-mode-btn:hover, .quiz-mode-btn.active { background: white; color: #4f46e5; }
+    .quiz-wrapper { background: #fff; border-radius: 20px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
+    .quiz-top-bar { background: var(--primary); color: white; padding: 20px 24px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .quiz-top-bar h2 { font-size: 16px; font-weight: 800; letter-spacing: -0.02em; }
+    .quiz-top-bar .quiz-desc { font-size: 13px; opacity: 0.8; font-weight: 400; }
+    .quiz-mode-btns { display: flex; gap: 6px; margin-left: auto; }
+    .quiz-mode-btn { background: rgba(255,255,255,0.18); border: none; color: rgba(255,255,255,0.9); border-radius: 100px; padding: 7px 16px; font-size: 12.5px; font-weight: 700; cursor: pointer; transition: all 0.15s; font-family: inherit; }
+    .quiz-mode-btn:hover, .quiz-mode-btn.active { background: white; color: var(--primary); }
 
-    /* FILTER */
-    .quiz-filter { display: flex; gap: 8px; padding: 16px 28px; background: #f5f3ff; border-bottom: 1px solid var(--border); flex-wrap: wrap; align-items: center; }
-    .quiz-filter span { font-size: 12px; font-weight: 700; color: #6b7280; margin-right: 4px; }
-    .filter-btn { background: white; border: 1.5px solid var(--border); color: var(--gray); border-radius: 100px; padding: 4px 14px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
-    .filter-btn:hover { border-color: #7c3aed; color: #7c3aed; }
-    .filter-btn.active { background: #7c3aed; border-color: #7c3aed; color: white; }
+    .quiz-filter { display: flex; gap: 6px; padding: 14px 24px; background: var(--bg); border-bottom: 1px solid var(--border); flex-wrap: wrap; align-items: center; }
+    .quiz-filter span { font-size: 12px; font-weight: 700; color: var(--text-sub); margin-right: 4px; }
+    .filter-btn { background: #fff; border: 1.5px solid var(--border); color: var(--text-sub); border-radius: 100px; padding: 5px 14px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: all 0.15s; font-family: inherit; }
+    .filter-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .filter-btn.active { background: var(--primary); border-color: var(--primary); color: white; }
 
-    /* SCORE BAR */
-    .score-bar { display: flex; align-items: center; gap: 16px; padding: 12px 28px; background: white; border-bottom: 1px solid var(--border); font-size: 13px; }
-    .score-bar .score-label { font-weight: 600; color: var(--gray); }
-    .score-bar .score-num { font-weight: 800; color: var(--navy); font-size: 15px; }
-    .progress-track { flex: 1; height: 6px; background: var(--border); border-radius: 100px; overflow: hidden; max-width: 200px; }
-    .progress-fill { height: 100%; background: linear-gradient(90deg, #7c3aed, #4f46e5); border-radius: 100px; transition: width 0.4s ease; }
-    .btn-restart { margin-left: auto; background: var(--gray-light); border: none; color: var(--gray); border-radius: 100px; padding: 6px 14px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .score-bar { display: flex; align-items: center; gap: 12px; padding: 12px 24px; background: white; border-bottom: 1px solid var(--border); font-size: 13px; }
+    .score-bar .score-label { font-weight: 600; color: var(--text-sub); font-size: 12.5px; }
+    .score-bar .score-num { font-weight: 800; color: var(--text); font-size: 15px; }
+    .progress-track { flex: 1; height: 5px; background: var(--bg); border-radius: 100px; overflow: hidden; max-width: 180px; }
+    .progress-fill { height: 100%; background: var(--primary); border-radius: 100px; transition: width 0.4s ease; }
+    .btn-restart { margin-left: auto; background: var(--bg); border: none; color: var(--text-sub); border-radius: 100px; padding: 7px 14px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s; font-family: inherit; }
     .btn-restart:hover { background: var(--border); color: var(--text); }
 
-    /* FLASHCARD */
-    .quiz-body { padding: 36px 28px; display: flex; flex-direction: column; align-items: center; min-height: 360px; justify-content: center; }
-    .card-counter { font-size: 12px; color: var(--text-sub); margin-bottom: 20px; letter-spacing: 0.04em; }
-    .flashcard-wrap { perspective: 1000px; width: 100%; max-width: 560px; margin-bottom: 28px; cursor: pointer; }
+    .quiz-body { padding: 40px 24px; display: flex; flex-direction: column; align-items: center; min-height: 360px; justify-content: center; }
+    .card-counter { font-size: 12px; color: var(--text-sub); margin-bottom: 20px; font-weight: 600; }
+    .flashcard-wrap { perspective: 1000px; width: 100%; max-width: 540px; margin-bottom: 24px; cursor: pointer; }
     .flashcard { position: relative; width: 100%; height: 220px; transform-style: preserve-3d; transition: transform 0.5s ease; }
     .flashcard.flipped { transform: rotateY(180deg); }
-    .card-face { position: absolute; inset: 0; border-radius: 18px; padding: 28px 32px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; backface-visibility: hidden; -webkit-backface-visibility: hidden; border: 2px solid var(--border); }
-    .card-front { background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%); border-color: #c4b5fd; }
-    .card-back { background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border-color: #6ee7b7; transform: rotateY(180deg); }
-    .card-front .card-type { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #7c3aed; margin-bottom: 12px; }
-    .card-front .card-word { font-size: 22px; font-weight: 800; color: #3730a3; line-height: 1.3; margin-bottom: 8px; }
-    .card-front .card-example { font-size: 12.5px; color: #6b7280; font-style: italic; line-height: 1.5; }
-    .card-front .tap-hint { font-size: 11px; color: #a78bfa; margin-top: 14px; }
-    .card-back .card-meaning { font-size: 18px; font-weight: 800; color: #064e3b; margin-bottom: 10px; line-height: 1.4; }
-    .card-back .card-tip { font-size: 12.5px; color: #047857; background: rgba(255,255,255,0.6); border-radius: 8px; padding: 6px 12px; line-height: 1.5; max-width: 400px; }
+    .card-face { position: absolute; inset: 0; border-radius: 18px; padding: 28px 32px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+    .card-front { background: var(--primary-light); border: 1.5px solid #C7DFFD; }
+    .card-back { background: var(--green-light); border: 1.5px solid #A7EDD3; transform: rotateY(180deg); }
+    .card-front .card-type { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--primary); margin-bottom: 12px; }
+    .card-front .card-word { font-size: 22px; font-weight: 800; color: var(--text); line-height: 1.3; margin-bottom: 8px; letter-spacing: -0.02em; }
+    .card-front .card-example { font-size: 12.5px; color: var(--text-sub); line-height: 1.55; }
+    .card-front .tap-hint { font-size: 11px; color: var(--primary); margin-top: 14px; font-weight: 600; opacity: 0.7; }
+    .card-back .card-meaning { font-size: 19px; font-weight: 800; color: var(--text); margin-bottom: 10px; line-height: 1.4; letter-spacing: -0.02em; }
+    .card-back .card-tip { font-size: 12.5px; color: #047857; background: rgba(255,255,255,0.7); border-radius: 10px; padding: 7px 14px; line-height: 1.5; max-width: 400px; font-weight: 500; }
 
-    /* ANSWER BTNS */
-    .answer-btns { display: flex; gap: 12px; justify-content: center; }
-    .answer-btns button { padding: 12px 32px; border-radius: 100px; border: none; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 6px; }
+    .answer-btns { display: flex; gap: 10px; justify-content: center; }
+    .answer-btns button { padding: 12px 28px; border-radius: 12px; border: none; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.15s; font-family: inherit; }
     .btn-wrong { background: var(--red-light); color: var(--red); }
-    .btn-wrong:hover { background: #fca5a5; }
+    .btn-wrong:hover { background: #FED7DA; }
     .btn-right { background: var(--green-light); color: var(--green); }
-    .btn-right:hover { background: #86efac; }
+    .btn-right:hover { background: #C6F5E2; }
     .answer-btns.hidden { opacity: 0; pointer-events: none; }
 
-    /* MULTIPLE CHOICE */
-    .mc-question { font-size: 18px; font-weight: 800; color: var(--navy); text-align: center; margin-bottom: 8px; max-width: 520px; line-height: 1.4; }
-    .mc-context { font-size: 12.5px; color: var(--gray); font-style: italic; text-align: center; margin-bottom: 24px; max-width: 480px; }
-    .mc-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; max-width: 540px; }
+    .mc-question { font-size: 19px; font-weight: 800; color: var(--text); text-align: center; margin-bottom: 8px; max-width: 520px; line-height: 1.4; letter-spacing: -0.02em; }
+    .mc-context { font-size: 13px; color: var(--text-sub); text-align: center; margin-bottom: 24px; max-width: 480px; line-height: 1.5; }
+    .mc-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; max-width: 540px; }
     @media (max-width: 480px) { .mc-options { grid-template-columns: 1fr; } }
-    .mc-option { background: var(--bg); border: 2px solid var(--border); border-radius: 12px; padding: 14px 18px; font-size: 13px; font-weight: 600; cursor: pointer; text-align: left; transition: all 0.2s; color: var(--text); }
-    .mc-option:hover:not(:disabled) { border-color: #7c3aed; background: #f5f3ff; color: #4f46e5; }
+    .mc-option { background: var(--bg); border: 1.5px solid var(--border); border-radius: 12px; padding: 14px 18px; font-size: 13.5px; font-weight: 600; cursor: pointer; text-align: left; transition: all 0.15s; color: var(--text); font-family: inherit; }
+    .mc-option:hover:not(:disabled) { border-color: var(--primary); background: var(--primary-light); color: var(--primary); }
     .mc-option.correct { background: var(--green-light); border-color: var(--green); color: var(--green); }
     .mc-option.wrong { background: var(--red-light); border-color: var(--red); color: var(--red); }
     .mc-option:disabled { cursor: default; }
-    .mc-next { margin-top: 20px; background: #7c3aed; color: white; border: none; border-radius: 100px; padding: 12px 32px; font-size: 14px; font-weight: 700; cursor: pointer; display: none; transition: background 0.2s; }
-    .mc-next:hover { background: #6d28d9; }
+    .mc-next { margin-top: 20px; background: var(--primary); color: white; border: none; border-radius: 12px; padding: 13px 32px; font-size: 14px; font-weight: 700; cursor: pointer; display: none; transition: background 0.15s; font-family: inherit; }
+    .mc-next:hover { background: var(--primary-dark); }
 
-    /* DONE SCREEN */
-    .quiz-done { text-align: center; padding: 40px 20px; }
-    .quiz-done .emoji { font-size: 56px; margin-bottom: 16px; }
-    .quiz-done h3 { font-size: 22px; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
-    .quiz-done .result-score { font-size: 40px; font-weight: 900; color: #7c3aed; margin: 12px 0; }
-    .quiz-done p { font-size: 14px; color: var(--gray); margin-bottom: 24px; }
-    .quiz-done .btn-again { background: #7c3aed; color: white; border: none; border-radius: 100px; padding: 14px 36px; font-size: 15px; font-weight: 700; cursor: pointer; transition: background 0.2s; }
-    .quiz-done .btn-again:hover { background: #6d28d9; }
+    .quiz-done { text-align: center; padding: 48px 20px; }
+    .quiz-done .emoji { font-size: 52px; margin-bottom: 16px; }
+    .quiz-done h3 { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 6px; letter-spacing: -0.02em; }
+    .quiz-done .result-score { font-size: 40px; font-weight: 900; color: var(--primary); margin: 12px 0; letter-spacing: -0.03em; }
+    .quiz-done p { font-size: 14px; color: var(--text-sub); margin-bottom: 28px; }
+    .quiz-done .btn-again { background: var(--primary); color: white; border: none; border-radius: 12px; padding: 14px 36px; font-size: 15px; font-weight: 700; cursor: pointer; transition: background 0.15s; font-family: inherit; }
+    .quiz-done .btn-again:hover { background: var(--primary-dark); }
 
-    /* HIDDEN */
     .hidden { display: none !important; }
-    footer { text-align: center; padding: 32px; font-size: 12px; color: var(--text-sub); border-top: 1px solid var(--border); }
+    footer { text-align: center; padding: 36px; font-size: 12.5px; color: var(--text-sub); border-top: 1px solid var(--border); font-weight: 500; }
+
+    /* MEETING SELECTOR */
+    .meeting-selector { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+    .meet-pill { background: #fff; border: 1.5px solid var(--border); color: var(--text-sub); border-radius: 100px; padding: 8px 20px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s; font-family: inherit; }
+    .meet-pill:hover { border-color: var(--primary); color: var(--primary); }
+    .meet-pill.active { background: var(--primary); border-color: var(--primary); color: white; }
+
+    /* SUBJECTIVE QUIZ */
+    .subj-ko { font-size: 22px; font-weight: 800; color: var(--text); text-align: center; letter-spacing: -0.02em; margin-bottom: 10px; line-height: 1.4; max-width: 520px; }
+    .subj-example { font-size: 13px; color: var(--text-sub); text-align: center; margin-bottom: 28px; max-width: 480px; line-height: 1.6; border-left: 2px solid var(--primary-light); padding-left: 10px; text-align: left; }
+    .subj-input-wrap { width: 100%; max-width: 520px; display: flex; gap: 8px; }
+    .subj-input { flex: 1; padding: 14px 18px; border: 1.5px solid var(--border); border-radius: 12px; font-size: 15px; font-family: inherit; color: var(--text); outline: none; transition: all 0.15s; background: var(--bg); }
+    .subj-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(49,130,246,0.1); background: #fff; }
+    .subj-submit { background: var(--primary); color: white; border: none; border-radius: 12px; padding: 14px 24px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; transition: background 0.15s; white-space: nowrap; }
+    .subj-submit:hover { background: var(--primary-dark); }
+    .subj-result { margin-top: 20px; text-align: center; width: 100%; max-width: 520px; }
+    .subj-answer-box { background: var(--bg); border-radius: 14px; padding: 16px 20px; margin-bottom: 16px; text-align: left; }
+    .subj-answer-box .label { font-size: 11px; font-weight: 700; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+    .subj-answer-box .correct-word { font-size: 17px; font-weight: 800; color: var(--text); letter-spacing: -0.01em; }
+    .subj-self { display: flex; gap: 8px; justify-content: center; }
+    .subj-self button { padding: 12px 28px; border-radius: 12px; border: none; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; transition: all 0.15s; }
 
     /* DELETE BUTTON */
     .vocab-card, .phrase-card, .addon-card { position: relative; }
-    .card-del-btn {
-      position: absolute; top: 8px; right: 8px;
-      width: 22px; height: 22px; border-radius: 50%;
-      border: none; background: transparent; color: #d1d5db;
-      font-size: 15px; cursor: pointer; opacity: 0;
-      transition: opacity 0.2s, background 0.2s, color 0.2s;
-      display: flex; align-items: center; justify-content: center;
-      line-height: 1; padding: 0;
-    }
-    .vocab-card:hover .card-del-btn,
-    .phrase-card:hover .card-del-btn,
-    .addon-card:hover .card-del-btn { opacity: 1; }
-    .card-del-btn:hover { background: #fee2e2; color: #dc2626; }
-    .restore-btn {
-      background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.25);
-      color: rgba(255,255,255,0.8); border-radius: 100px;
-      padding: 4px 14px; font-size: 12px; font-weight: 600;
-      cursor: pointer; transition: all 0.2s; white-space: nowrap;
-    }
-    .restore-btn:hover { background: rgba(255,255,255,0.22); color: #fff; }
+    .card-del-btn { position: absolute; top: 10px; right: 10px; width: 22px; height: 22px; border-radius: 50%; border: none; background: transparent; color: var(--border); font-size: 14px; cursor: pointer; opacity: 0; transition: all 0.15s; display: flex; align-items: center; justify-content: center; line-height: 1; padding: 0; }
+    .vocab-card:hover .card-del-btn, .phrase-card:hover .card-del-btn, .addon-card:hover .card-del-btn { opacity: 1; }
+    .card-del-btn:hover { background: var(--red-light); color: var(--red); }
+    .restore-btn { background: var(--bg); border: 1.5px solid var(--border); color: var(--text-sub); border-radius: 100px; padding: 5px 14px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s; white-space: nowrap; font-family: inherit; }
+    .restore-btn:hover { border-color: var(--text-sub); color: var(--text); }
 
     /* PASSWORD GATE */
-    #pw-gate {
-      position: fixed; inset: 0; z-index: 9999;
-      background: linear-gradient(135deg, var(--navy) 0%, #2d6a4f 100%);
-      display: flex; align-items: center; justify-content: center;
-    }
+    #pw-gate { position: fixed; inset: 0; z-index: 9999; background: var(--bg); display: flex; align-items: center; justify-content: center; }
     #pw-gate.hidden { display: none; }
-    .pw-box {
-      background: white; border-radius: 20px;
-      padding: 40px 36px; width: 100%; max-width: 360px;
-      text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    }
-    .pw-box .pw-icon { font-size: 40px; margin-bottom: 12px; }
-    .pw-box h2 { font-size: 18px; font-weight: 800; color: var(--navy); margin-bottom: 6px; }
-    .pw-box p { font-size: 13px; color: var(--gray); margin-bottom: 24px; }
+    .pw-box { background: white; border-radius: 24px; padding: 44px 36px; width: 100%; max-width: 360px; text-align: center; box-shadow: 0 8px 40px rgba(0,0,0,0.1); border: 1px solid var(--border); }
+    .pw-box .pw-icon { font-size: 36px; margin-bottom: 16px; }
+    .pw-box h2 { font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 6px; letter-spacing: -0.02em; }
+    .pw-box p { font-size: 13.5px; color: var(--text-sub); margin-bottom: 28px; font-weight: 400; }
     .pw-input-wrap { position: relative; margin-bottom: 12px; }
-    .pw-box input {
-      width: 100%; padding: 12px 44px 12px 16px;
-      border: 2px solid var(--border); border-radius: 12px;
-      font-size: 15px; outline: none; letter-spacing: 0.1em;
-      transition: border-color 0.2s; color: var(--text);
-    }
-    .pw-box input:focus { border-color: var(--navy); }
-    .pw-toggle {
-      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
-      background: none; border: none; cursor: pointer; font-size: 16px; color: var(--gray);
-    }
-    .pw-box button.pw-submit {
-      width: 100%; padding: 13px; background: var(--navy);
-      color: white; border: none; border-radius: 12px;
-      font-size: 15px; font-weight: 700; cursor: pointer;
-      transition: background 0.2s; margin-bottom: 8px;
-    }
-    .pw-box button.pw-submit:hover { background: #152d47; }
-    .pw-error {
-      font-size: 12.5px; color: var(--red);
-      min-height: 18px; margin-top: 4px;
-    }
+    .pw-box input { width: 100%; padding: 13px 44px 13px 16px; border: 1.5px solid var(--border); border-radius: 12px; font-size: 15px; outline: none; letter-spacing: 0.1em; transition: all 0.15s; color: var(--text); font-family: inherit; background: var(--bg); }
+    .pw-box input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(49,130,246,0.1); background: #fff; }
+    .pw-toggle { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 16px; color: var(--text-sub); }
+    .pw-box button.pw-submit { width: 100%; padding: 14px; background: var(--primary); color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; transition: background 0.15s; margin-bottom: 8px; font-family: inherit; }
+    .pw-box button.pw-submit:hover { background: var(--primary-dark); }
+    .pw-error { font-size: 12.5px; color: var(--red); min-height: 18px; margin-top: 4px; font-weight: 500; }
   </style>
 </head>
 <body>
@@ -302,9 +272,14 @@
       <div class="section-icon" style="background:#eaf0f8;">🎙️</div>
       <span class="section-title">Meeting Log</span>
     </div>
-    <p class="section-sub">녹취록에서 추출한 핵심 어휘 + 실전 회의 표현</p>
+    <p class="section-sub">미팅을 선택하면 해당 회의의 어휘와 표현이 나와요</p>
 
-    <div class="meeting-block">
+    <div class="meeting-selector">
+      <button class="meet-pill active" onclick="selectMeeting('0416', this)">4/16 SKS Builder</button>
+      <button class="meet-pill" onclick="selectMeeting('0417', this)">4/17 Earth Day</button>
+    </div>
+
+    <div class="meeting-block" data-mid="0416">
       <div class="meeting-header">
         <span class="badge">SKS Builder</span>
         <span class="title">팀 미팅 — 웹사이트 유지관리, SOW 협상, Configurator 브리핑</span>
@@ -414,6 +389,78 @@
     </div>
   </div>
 
+  <!-- ========== 4/17 EARTH DAY ========== -->
+    <div class="meeting-block hidden" data-mid="0417">
+      <div class="meeting-header">
+        <span class="badge">Corporate Marketing</span>
+        <span class="title">Earth Day 기획 회의 — 사진/영상 촬영, shot list, 예산 처리</span>
+        <span class="date">2026.04.17</span>
+      </div>
+      <div class="sub-tabs">
+        <div class="sub-tab active" onclick="switchTab(this,'vocab-0417')">🔤 주요 어휘</div>
+        <div class="sub-tab" onclick="switchTab(this,'phrases-0417')">💬 회의 표현</div>
+      </div>
+
+      <!-- VOCAB TAB -->
+      <div class="tab-panel active" id="vocab-0417">
+        <div class="vocab-cat-label">📌 비즈니스 용어 (Terms)</div>
+        <div class="vocab-grid">
+          <div class="vocab-card searchable"><div class="word">AP photographer</div><div class="meaning">언론·PR 배포용 공식 사진작가 (AP = Associated Press)</div><div class="example">"The AP photographer who was once coming — we're not able to do it through Burson" → AP 사진작가를 Burson 통해서는 못 쓰게 됐고</div><div class="tip">💡 AP wire에 사진을 올릴 수 있는 공인 사진작가. 일반 사진작가와 다름</div></div>
+          <div class="vocab-card searchable"><div class="word">put it on the wire</div><div class="meaning">언론 네트워크(AP wire)에 사진·보도자료를 배포하다</div><div class="example">"With the AP photographer, they'll put it on the wire" → AP 사진작가 쓰면 그 사진을 wire에 배포할 수 있고</div></div>
+          <div class="vocab-card searchable"><div class="word">pass-through cost</div><div class="meaning">중간 마진 없이 그대로 클라이언트에 넘기는 비용</div><div class="example">"I don't know if we can do it as a pass-through cost, because we couldn't do it through LG" → 그걸 pass-through cost로 처리할 수 있을지 모르겠고, LG 경로로는 안 되니까</div><div class="tip">💡 에이전시가 외부 비용을 마진 없이 그대로 청구할 때 씀</div></div>
+          <div class="vocab-card searchable"><div class="word">moot point</div><div class="meaning">논의해봤자 의미 없는 사항 (이미 불가능하거나 결정에 영향 없는 경우)</div><div class="example">"It might be a moot point" → 이 논의 자체가 의미 없을 수도 있어</div><div class="tip">💡 "That's a moot point now" = 이제 그건 논의할 필요가 없어졌어</div></div>
+          <div class="vocab-card searchable"><div class="word">shot list</div><div class="meaning">촬영 목록 (찍어야 할 사진·영상 컷 리스트)</div><div class="example">"We're going to put together a shot list and requirements for the day" → 당일 촬영 목록이랑 요구사항 정리할 거고</div></div>
+          <div class="vocab-card searchable"><div class="word">sizzle (reel)</div><div class="meaning">하이라이트 홍보 영상, 짧고 임팩트 있는 편집 영상</div><div class="example">"Getting everything ingested to be able to create a sizzle" → 모든 촬영물 정리해서 시즐 만들기 위해</div><div class="tip">💡 에이전시에서 일상적으로 쓰는 단어. "시즐"로 그냥 발음함</div></div>
+          <div class="vocab-card searchable"><div class="word">must-have vs nice-to-have</div><div class="meaning">필수 항목 vs 있으면 좋은 항목</div><div class="example">"The must-haves and the nice-to-haves" → 필수 샷이랑 선택 샷 구분</div><div class="tip">💡 deliverable, feature, shot 등 모든 우선순위 논의에서 활용 가능</div></div>
+          <div class="vocab-card searchable"><div class="word">time slot</div><div class="meaning">이벤트 진행 시간 구간 (ex. 1PM–2PM)</div><div class="example">"Photos of every single time slot" → 모든 타임 구간별로 사진을 찍을 건지</div></div>
+          <div class="vocab-card searchable"><div class="word">likeness</div><div class="meaning">초상권, 얼굴·이미지 (사진·영상에 나오는 모습)</div><div class="example">"We all sign something saying our likeness can be used" → 우리 초상이 사용될 수 있다는 걸 서명한 거고</div><div class="tip">💡 사진/영상 사용 동의 관련 법적 맥락에서 자주 쓰임</div></div>
+          <div class="vocab-card searchable"><div class="word">waiver</div><div class="meaning">면책 동의서, 권리 포기 동의서</div><div class="example">"They sign a waiver to come on campus" → 캠퍼스 입장 시 면책 동의서 서명하고</div></div>
+          <div class="vocab-card searchable"><div class="word">AV (audio-visual)</div><div class="meaning">음향·영상 장비 일체 (마이크, 스피커, 스크린 등)</div><div class="example">"Are there speakers we need to be aware of to be able to do any AV?" → AV 세팅 위해 알아야 할 발표자 있어?</div></div>
+          <div class="vocab-card searchable"><div class="word">staging</div><div class="meaning">연출, 무대 배치, 장면 세팅</div><div class="example">"Do we need to keep anything in mind with regards to staging?" → 연출 면에서 신경 써야 할 게 있어?</div></div>
+          <div class="vocab-card searchable"><div class="word">Interbrand</div><div class="meaning">글로벌 브랜드 평가 기관 (매년 Top 100 글로벌 브랜드 선정)</div><div class="example">"Every year we try to submit to be the top 100 Interbrand" → 매년 Interbrand 100대 브랜드 선정 제출을 노리고 있어</div></div>
+          <div class="vocab-card searchable"><div class="word">brand-aligned (brand online)</div><div class="meaning">브랜드 가이드라인에 맞는, 브랜드에 부합하는</div><div class="example">"We had some sandwich that wasn't brand-aligned" → 브랜드 기준에 안 맞는 것들이 있었고</div><div class="tip">💡 "brand online"은 녹취 오류, 실제 표현은 brand-aligned / on-brand</div></div>
+        </div>
+
+        <div class="vocab-cat-label">🔁 구동사 (Phrasal Verbs)</div>
+        <div class="vocab-grid">
+          <div class="vocab-card searchable"><div class="word">bring on</div><div class="meaning">섭외하다, 공식적으로 투입·참여시키다</div><div class="example">"We bring on the AP photographer through HSAD" → HSAD 통해서 AP 사진작가를 섭외한다</div><div class="tip">💡 단순 "데려오다"보다 업무에 공식 참여시키는 뉘앙스가 강함</div></div>
+          <div class="vocab-card searchable"><div class="word">build A into B</div><div class="meaning">A를 처음부터 B 안에 계획적으로 포함시키다 (예산·시간 기준)</div><div class="example">"We've built production hours into the retainer" → 프로덕션 시간을 리테이너에 이미 넣어놨어</div><div class="tip">💡 단순 "include"와 달리 의도적으로 설계해서 미리 넣은 것. scope/비용 방어할 때 나오면 "이미 포함된 범위야"라는 뜻</div></div>
+          <div class="vocab-card searchable"><div class="word">turn around</div><div class="meaning">빨리 작업해서 결과물로 내놓다</div><div class="example">"You'd want to turn around a couple of the shots" → 사진 몇 장은 빨리 보정해서 바로 쓸 수 있게 해야 할 거야</div><div class="tip">💡 "turn around a deck / an edit / photos" 모두 가능. 납기 빠른 작업에 씀</div></div>
+          <div class="vocab-card searchable"><div class="word">ingest</div><div class="meaning">촬영 파일을 업로드·정리해서 편집 가능한 상태로 만들다</div><div class="example">"Getting everything ingested to be able to create a sizzle" → 모든 촬영물 정리해서 시즐 작업 가능한 상태로 만들고</div></div>
+          <div class="vocab-card searchable"><div class="word">retouch / clean up</div><div class="meaning">사진을 보정하다</div><div class="example">"What has to get retouched and cleaned up right away to distribute it" → 배포 위해 바로 보정해야 하는 사진이 뭔지</div></div>
+          <div class="vocab-card searchable"><div class="word">mic (somebody)</div><div class="meaning">누군가에게 마이크를 달아주다</div><div class="example">"Do we need to mic anybody?" → 마이크 달아줘야 하는 사람 있어?</div><div class="tip">💡 microphone의 동사형. "We need to mic the speaker" = 발표자한테 마이크 달아야 해</div></div>
+          <div class="vocab-card searchable"><div class="word">stop in</div><div class="meaning">잠깐 들르다</div><div class="example">"If you wanted to just stop in when we're setting up" → 설치할 때 잠깐 들러줘도 괜찮아요</div></div>
+          <div class="vocab-card searchable"><div class="word">divide and conquer</div><div class="meaning">역할을 나눠서 각자 처리하다</div><div class="example">"I would propose a divide and conquer" → 역할 분담해서 각자 처리하자고 제안하고 싶어</div><div class="tip">💡 팀에서 작업을 쪼갤 때 쓰는 표현. "Let's divide and conquer" 자주 씀</div></div>
+          <div class="vocab-card searchable"><div class="word">noodle (it)</div><div class="meaning">머리를 굴려서 고민하다, 계산해보다</div><div class="example">"We'll have to noodle the actual hours" → 실제 시간을 좀 머리 굴려서 계산해봐야 해</div><div class="tip">💡 캐주얼하고 재치 있는 표현. "Let me noodle on that" = 좀 생각해볼게</div></div>
+          <div class="vocab-card searchable"><div class="word">delineate</div><div class="meaning">명확히 구분하다, 항목을 분리해서 정리하다</div><div class="example">"We delineated all the out-of-pocket versus the labor" → 실비와 인건비를 명확히 나눠서 정리했어</div><div class="tip">💡 "separate"보다 더 체계적·공식적으로 구분하는 뉘앙스</div></div>
+        </div>
+
+        <div class="vocab-cat-label">🧠 고급 표현 (Advanced Expressions)</div>
+        <div class="vocab-grid">
+          <div class="vocab-card searchable"><div class="word">just to cover our bases</div><div class="meaning">혹시 모를 상황에 대비해서, 빠짐없이 챙기기 위해</div><div class="example">"I can send the waiver to everyone just to cover our bases" → 혹시 모를 상황 대비해서 동의서를 다 보낼게</div><div class="tip">💡 "cover us one more layer"도 같은 뜻. 리스크를 한 단계 더 보완하다</div></div>
+          <div class="vocab-card searchable"><div class="word">just hypothetically speaking</div><div class="meaning">가정해서 말해보면, 가정을 전제로 얘기하면</div><div class="example">"Just hypothetically speaking, if we were to go that route" → 가정해서 말해보면, 그 방향으로 간다면</div><div class="tip">💡 실무에서 매우 자주 씀. 아직 결정 전인 옵션을 논의할 때 안전하게 꺼내는 방식</div></div>
+          <div class="vocab-card searchable"><div class="word">no news is good news</div><div class="meaning">소식이 없는 게 좋은 소식 (문제 없다는 뜻)</div><div class="example">"I feel like no news is good news" → 아무 연락 없으면 잘 되고 있는 거겠지</div><div class="tip">💡 이벤트나 진행 중인 작업에서 업데이트가 없을 때 쓰는 표현</div></div>
+          <div class="vocab-card searchable"><div class="word">it's less about A, it's about B</div><div class="meaning">A가 핵심이 아니고, 진짜 중요한 건 B야</div><div class="example">"It's less about that — it's about getting everything ingested" → 그게 중요한 게 아니고, 모든 걸 정리하는 게 핵심이야</div><div class="tip">💡 논점을 재정의할 때 매우 유용한 구조</div></div>
+          <div class="vocab-card searchable"><div class="word">keep eyes on</div><div class="meaning">계속 지켜보다, 모니터링하다</div><div class="example">"We'll just keep eyes on" → 계속 지켜볼게요</div></div>
+        </div>
+      </div>
+
+      <!-- PHRASES TAB -->
+      <div class="tab-panel" id="phrases-0417">
+        <div class="phrase-list">
+          <div class="phrase-card searchable"><div class="situation">📋 회의 마무리 전 체크리스트 짚을 때</div><div class="phrase">"What I do want to make sure we have before the end of this meeting is..."</div><div class="ko">이 회의가 끝나기 전에 반드시 확인해야 할 건...</div><div class="usage">What I do want to make sure we have before the end of this meeting is Scott has an exact shot list of what we need.</div></div>
+          <div class="phrase-card searchable"><div class="situation">✅ 내가 제대로 이해한 건지 확인할 때</div><div class="phrase">"So if I'm hearing correctly..."</div><div class="ko">제가 제대로 이해한 거라면... (요약 후 확인 요청)</div><div class="usage">So if I'm hearing correctly, video is really between 1 and 5 PM, and photography is throughout the day but specifically between 2 and 3:15 — correct?</div></div>
+          <div class="phrase-card searchable"><div class="situation">🙋 가볍게 요청하거나 제안할 때</div><div class="phrase">"I wouldn't mind having a second person around."</div><div class="ko">한 명 더 있으면 좋을 것 같아요 (부드럽게 요청하는 표현)</div><div class="usage">I wouldn't mind having a second person around — like if you wanted to just stop in when we're setting up.</div></div>
+          <div class="phrase-card searchable"><div class="situation">📞 간단히 확인 미팅 잡을 때</div><div class="phrase">"If we could just touch base to make sure nothing else is needed."</div><div class="ko">다른 필요한 게 없는지 잠깐 확인해봐요</div><div class="usage">Just during lunch, if we could touch base to make sure nothing else is needed before the event kicks off.</div></div>
+          <div class="phrase-card searchable"><div class="situation">📧 회의 후 후속 조치를 예고할 때</div><div class="phrase">"I'll follow up in email as far as deliverables timing."</div><div class="ko">결과물 일정 관련해서 이메일로 후속 조치할게요</div><div class="usage">I'll follow up in email as far as deliverables timing — when do you need the sizzle, and how many formats?</div></div>
+          <div class="phrase-card searchable"><div class="situation">💭 아직 결정 전인 옵션을 꺼낼 때</div><div class="phrase">"Just hypothetically speaking, if we were to go that route..."</div><div class="ko">가정해서 말해보면, 그 방향으로 간다면...</div><div class="usage">Just hypothetically speaking, if we were to go with the AP photographer, do we have the budget for that?</div></div>
+          <div class="phrase-card searchable"><div class="situation">🔀 역할 분담을 제안할 때</div><div class="phrase">"I would propose a divide and conquer."</div><div class="ko">역할 나눠서 각자 처리하는 걸 제안하고 싶어요</div><div class="usage">There's a lot to cover today — I would propose a divide and conquer so we can get everything done efficiently.</div></div>
+          <div class="phrase-card searchable"><div class="situation">🎯 논점을 재정의하고 싶을 때</div><div class="phrase">"It's less about that — it's about..."</div><div class="ko">그게 핵심이 아니고, 진짜 중요한 건...</div><div class="usage">It's less about how long we shoot — it's about getting everything ingested and retouched in time.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ========== DAILY ADD-ON ========== -->
   <div class="section" id="daily-addon">
     <div class="section-header">
@@ -447,12 +494,8 @@
     <div class="quiz-wrapper">
       <div class="quiz-top-bar">
         <div>
-          <h2>🧠 오늘의 퀴즈</h2>
-          <div class="quiz-desc">지금까지 모은 어휘와 표현 전체 출제</div>
-        </div>
-        <div class="quiz-mode-btns">
-          <button class="quiz-mode-btn active" onclick="setMode('flash')">📋 플래시카드</button>
-          <button class="quiz-mode-btn" onclick="setMode('mc')">🎯 객관식</button>
+          <h2>🧠 주관식 퀴즈</h2>
+          <div class="quiz-desc">한국어 뜻을 보고 영어 표현을 직접 써보세요</div>
         </div>
       </div>
 
@@ -470,44 +513,33 @@
         <span class="score-label">정답</span>
         <span class="score-num" id="score-right">0</span>
         <span class="score-label" style="margin-left:12px;">오답</span>
-        <span class="score-num" id="score-wrong" style="color:#dc2626;">0</span>
+        <span class="score-num" id="score-wrong" style="color:var(--red);">0</span>
         <div class="progress-track" style="margin-left:16px;">
           <div class="progress-fill" id="progress-fill" style="width:0%"></div>
         </div>
-        <span id="progress-text" style="font-size:12px;color:#6b7280;">0 / 0</span>
+        <span id="progress-text" style="font-size:12px;color:var(--text-sub);">0 / 0</span>
         <button class="btn-restart" onclick="startQuiz()">↩ 다시 시작</button>
       </div>
 
-      <!-- FLASHCARD MODE -->
-      <div class="quiz-body" id="flash-mode">
-        <div class="card-counter" id="card-counter">카드 1 / 44</div>
-        <div class="flashcard-wrap" onclick="flipCard()">
-          <div class="flashcard" id="flashcard">
-            <div class="card-face card-front">
-              <div class="card-type" id="fc-type">Phrasal Verb</div>
-              <div class="card-word" id="fc-word">close out</div>
-              <div class="card-example" id="fc-example">"I have to close it out by Friday."</div>
-              <div class="tap-hint">👆 클릭해서 정답 확인</div>
-            </div>
-            <div class="card-face card-back">
-              <div class="card-meaning" id="fc-meaning">마무리하다, 종결하다</div>
-              <div class="card-tip" id="fc-tip">💡 "finish"보다 공식적 종결 뉘앙스. 회계/프로젝트 마감에 자주 씀</div>
-            </div>
+      <!-- SUBJECTIVE MODE -->
+      <div class="quiz-body" id="subj-mode">
+        <div class="card-counter" id="subj-counter">문제 1 / 44</div>
+        <div class="subj-ko" id="subj-ko"></div>
+        <div class="subj-example" id="subj-example"></div>
+        <div class="subj-input-wrap">
+          <input class="subj-input" id="subj-input" type="text" placeholder="영어로 입력해보세요..." autocomplete="off" onkeydown="if(event.key==='Enter')checkSubj()" />
+          <button class="subj-submit" onclick="checkSubj()">확인 →</button>
+        </div>
+        <div class="subj-result hidden" id="subj-result">
+          <div class="subj-answer-box">
+            <div class="label">정답</div>
+            <div class="correct-word" id="subj-correct"></div>
+          </div>
+          <div class="subj-self">
+            <button class="btn-wrong" onclick="markAnswer(false)">😅 틀렸어요</button>
+            <button class="btn-right" onclick="markAnswer(true)">✅ 맞았어요!</button>
           </div>
         </div>
-        <div class="answer-btns hidden" id="answer-btns">
-          <button class="btn-wrong" onclick="markAnswer(false)">😅 다시 볼게요</button>
-          <button class="btn-right" onclick="markAnswer(true)">✅ 알았어요!</button>
-        </div>
-      </div>
-
-      <!-- MULTIPLE CHOICE MODE -->
-      <div class="quiz-body hidden" id="mc-mode">
-        <div class="card-counter" id="mc-counter">문제 1 / 44</div>
-        <div class="mc-question" id="mc-question">close out</div>
-        <div class="mc-context" id="mc-context">"I have to close it out by Friday."</div>
-        <div class="mc-options" id="mc-options"></div>
-        <button class="mc-next" id="mc-next" onclick="nextMC()">다음 문제 →</button>
       </div>
 
       <!-- DONE SCREEN -->
@@ -585,19 +617,61 @@ const QUIZ_DATA = [
   { type:'phrase', label:'회의 표현', word:'"From a business perspective..."', meaning:'비즈니스 관점에서 보면...', example:'특정 관점에서 의견을 낼 때', tip:'' },
   { type:'phrase', label:'회의 표현', word:'"I\'ll make it a priority."', meaning:'우선순위로 처리할게요.', example:'적극적인 의지를 표현할 때', tip:'' },
   { type:'phrase', label:'회의 표현', word:'"That\'s where we\'re at."', meaning:'현재 상황이 그렇습니다.', example:'현재 상황을 마무리 요약할 때', tip:'' },
+  // 4/17 Earth Day — Terms
+  { type:'term', label:'비즈니스 용어', word:'AP photographer', meaning:'언론·PR 배포용 공식 사진작가 (Associated Press)', example:'"The AP photographer who was once coming — we\'re not able to do it through Burson"', tip:'AP wire에 사진을 올릴 수 있는 공인 사진작가' },
+  { type:'term', label:'비즈니스 용어', word:'put it on the wire', meaning:'언론 네트워크(AP wire)에 배포하다', example:'"With the AP photographer, they\'ll put it on the wire"', tip:'' },
+  { type:'term', label:'비즈니스 용어', word:'pass-through cost', meaning:'중간 마진 없이 그대로 클라이언트에 넘기는 비용', example:'"I don\'t know if we can do it as a pass-through cost"', tip:'' },
+  { type:'term', label:'비즈니스 용어', word:'moot point', meaning:'논의해봤자 의미 없는 사항', example:'"It might be a moot point"', tip:'"That\'s a moot point now" = 이제 논의할 필요가 없어졌어' },
+  { type:'term', label:'비즈니스 용어', word:'shot list', meaning:'촬영 목록 (찍어야 할 사진·영상 컷 리스트)', example:'"We\'re going to put together a shot list and requirements for the day"', tip:'' },
+  { type:'term', label:'비즈니스 용어', word:'sizzle (reel)', meaning:'하이라이트 홍보 영상, 짧고 임팩트 있는 편집 영상', example:'"Getting everything ingested to be able to create a sizzle"', tip:'' },
+  { type:'term', label:'비즈니스 용어', word:'must-have vs nice-to-have', meaning:'필수 항목 vs 있으면 좋은 항목', example:'"The must-haves and the nice-to-haves"', tip:'' },
+  { type:'term', label:'비즈니스 용어', word:'likeness', meaning:'초상권, 얼굴·이미지 (사진·영상에 나오는 모습)', example:'"We all sign something saying our likeness can be used"', tip:'' },
+  { type:'term', label:'비즈니스 용어', word:'waiver', meaning:'면책 동의서, 권리 포기 동의서', example:'"They sign a waiver to come on campus"', tip:'' },
+  { type:'term', label:'비즈니스 용어', word:'staging', meaning:'연출, 무대 배치, 장면 세팅', example:'"Do we need to keep anything in mind with regards to staging?"', tip:'' },
+  // 4/17 Earth Day — Phrasal
+  { type:'phrasal', label:'구동사', word:'bring on', meaning:'섭외하다, 공식적으로 투입·참여시키다', example:'"We bring on the AP photographer through HSAD"', tip:'단순 "데려오다"보다 공식 참여시키는 뉘앙스' },
+  { type:'phrasal', label:'구동사', word:'build A into B', meaning:'A를 처음부터 B 안에 계획적으로 포함시키다', example:'"We\'ve built production hours into the retainer"', tip:'scope/비용 방어할 때 나오면 "이미 포함된 범위"라는 뜻' },
+  { type:'phrasal', label:'구동사', word:'turn around', meaning:'빨리 작업해서 결과물로 내놓다', example:'"You\'d want to turn around a couple of the shots"', tip:'"turn around a deck / an edit / photos" 모두 가능' },
+  { type:'phrasal', label:'구동사', word:'ingest', meaning:'촬영 파일을 업로드·정리해서 편집 가능한 상태로 만들다', example:'"Getting everything ingested to be able to create a sizzle"', tip:'' },
+  { type:'phrasal', label:'구동사', word:'mic (somebody)', meaning:'누군가에게 마이크를 달아주다', example:'"Do we need to mic anybody?"', tip:'microphone의 동사형' },
+  { type:'phrasal', label:'구동사', word:'divide and conquer', meaning:'역할을 나눠서 각자 처리하다', example:'"I would propose a divide and conquer"', tip:'"Let\'s divide and conquer" 자주 씀' },
+  { type:'phrasal', label:'구동사', word:'noodle (it)', meaning:'머리를 굴려서 고민하다, 계산해보다', example:'"We\'ll have to noodle the actual hours"', tip:'"Let me noodle on that" = 좀 생각해볼게' },
+  { type:'phrasal', label:'구동사', word:'delineate', meaning:'명확히 구분하다, 항목을 분리해서 정리하다', example:'"We delineated all the out-of-pocket versus the labor"', tip:'"separate"보다 더 체계적·공식적 뉘앙스' },
+  // 4/17 Earth Day — Expr
+  { type:'expr', label:'고급 표현', word:'just to cover our bases', meaning:'혹시 모를 상황에 대비해서, 빠짐없이 챙기기 위해', example:'"I can send the waiver to everyone just to cover our bases"', tip:'' },
+  { type:'expr', label:'고급 표현', word:'just hypothetically speaking', meaning:'가정해서 말해보면', example:'"Just hypothetically speaking, if we were to go that route"', tip:'아직 결정 전인 옵션을 안전하게 꺼낼 때' },
+  { type:'expr', label:'고급 표현', word:'no news is good news', meaning:'소식이 없는 게 좋은 소식 (문제 없다는 뜻)', example:'"I feel like no news is good news"', tip:'' },
+  { type:'expr', label:'고급 표현', word:"it's less about A, it's about B", meaning:'A가 핵심이 아니고, 진짜 중요한 건 B야', example:'"It\'s less about that — it\'s about getting everything ingested"', tip:'논점을 재정의할 때 유용한 구조' },
+  // 4/17 Earth Day — Phrases
+  { type:'phrase', label:'회의 표현', word:'"What I do want to make sure we have before the end of this meeting is..."', meaning:'이 회의가 끝나기 전에 반드시 확인해야 할 건...', example:'회의 마무리 전 체크리스트 짚을 때', tip:'' },
+  { type:'phrase', label:'회의 표현', word:'"So if I\'m hearing correctly..."', meaning:'제가 제대로 이해한 거라면... (요약 후 확인 요청)', example:'회의 중 내용 요약하며 확인할 때', tip:'' },
+  { type:'phrase', label:'회의 표현', word:'"I wouldn\'t mind having a second person around."', meaning:'한 명 더 있으면 좋을 것 같아요 (부드러운 요청)', example:'가볍게 요청하거나 제안할 때', tip:'' },
+  { type:'phrase', label:'회의 표현', word:'"If we could just touch base to make sure nothing else is needed."', meaning:'다른 필요한 게 없는지 잠깐 확인해봐요', example:'간단한 확인 미팅을 제안할 때', tip:'' },
+  { type:'phrase', label:'회의 표현', word:'"I\'ll follow up in email as far as deliverables timing."', meaning:'결과물 일정 관련해서 이메일로 후속 조치할게요', example:'회의 후 이메일 후속 조치를 예고할 때', tip:'' },
   // Add-on
   { type:'addon', label:'Daily Add-on', word:'"We can connect on Monday."', meaning:'월요일에 얘기하자 / 미팅 잡자', example:'"connect"를 동사로. "meet"보다 캐주얼하고 자연스러움', tip:'' },
   { type:'addon', label:'Daily Add-on', word:'"It wasn\'t heart to heart."', meaning:'진심이 통하지 않았다 / 진솔한 대화가 아니었다', example:'소통의 진정성이 없었다는 뉘앙스', tip:'' },
 ];
 
 // ===================== STATE =====================
-let mode = 'flash';
 let filter = 'all';
 let deck = [];
 let idx = 0;
 let rightCount = 0;
 let wrongCount = 0;
-let flipped = false;
+
+// ===================== MEETING SELECTOR =====================
+function selectMeeting(mid, btn) {
+  document.querySelectorAll('.meet-pill').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.meeting-block').forEach(block => {
+    if (block.dataset.mid === mid) {
+      block.classList.remove('hidden');
+    } else {
+      block.classList.add('hidden');
+    }
+  });
+}
 
 function getFilteredDeck() {
   if (filter === 'all') return shuffle([...QUIZ_DATA]);
@@ -612,13 +686,6 @@ function shuffle(arr) {
   return arr;
 }
 
-function setMode(m) {
-  mode = m;
-  document.querySelectorAll('.quiz-mode-btn').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
-  startQuiz();
-}
-
 function setFilter(f, btn) {
   filter = f;
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -628,97 +695,43 @@ function setFilter(f, btn) {
 
 function startQuiz() {
   deck = getFilteredDeck();
-  idx = 0; rightCount = 0; wrongCount = 0; flipped = false;
+  idx = 0; rightCount = 0; wrongCount = 0;
   updateScoreBar();
   document.getElementById('quiz-done').classList.add('hidden');
-  if (mode === 'flash') {
-    document.getElementById('flash-mode').classList.remove('hidden');
-    document.getElementById('mc-mode').classList.add('hidden');
-    showFlashcard();
-  } else {
-    document.getElementById('flash-mode').classList.add('hidden');
-    document.getElementById('mc-mode').classList.remove('hidden');
-    showMC();
-  }
+  document.getElementById('subj-mode').classList.remove('hidden');
+  showSubj();
 }
 
-// ===================== FLASHCARD =====================
-function showFlashcard() {
+// ===================== SUBJECTIVE QUIZ =====================
+function showSubj() {
   if (idx >= deck.length) { showDone(); return; }
   const card = deck[idx];
-  flipped = false;
-  const fc = document.getElementById('flashcard');
-  fc.classList.remove('flipped');
-  document.getElementById('fc-type').textContent = card.label;
-  document.getElementById('fc-word').textContent = card.word;
-  document.getElementById('fc-example').textContent = card.example || '';
-  document.getElementById('fc-meaning').textContent = card.meaning;
-  document.getElementById('fc-tip').textContent = card.tip ? '💡 ' + card.tip : '';
-  document.getElementById('answer-btns').classList.add('hidden');
-  document.getElementById('card-counter').textContent = `카드 ${idx + 1} / ${deck.length}`;
+  document.getElementById('subj-counter').textContent = `문제 ${idx + 1} / ${deck.length}`;
+  document.getElementById('subj-ko').textContent = card.meaning;
+  document.getElementById('subj-example').textContent = card.example || '';
+  document.getElementById('subj-result').classList.add('hidden');
+  const input = document.getElementById('subj-input');
+  input.value = '';
+  input.disabled = false;
+  document.querySelector('.subj-submit').disabled = false;
+  input.focus();
 }
 
-function flipCard() {
-  if (flipped) return;
-  flipped = true;
-  document.getElementById('flashcard').classList.add('flipped');
-  document.getElementById('answer-btns').classList.remove('hidden');
+function checkSubj() {
+  const input = document.getElementById('subj-input');
+  input.disabled = true;
+  document.querySelector('.subj-submit').disabled = true;
+  const card = deck[idx];
+  const tipText = card.tip ? ' — 💡 ' + card.tip : '';
+  document.getElementById('subj-correct').textContent = card.word + tipText;
+  document.getElementById('subj-result').classList.remove('hidden');
 }
 
 function markAnswer(correct) {
   if (correct) rightCount++; else wrongCount++;
   idx++;
   updateScoreBar();
-  showFlashcard();
-}
-
-// ===================== MULTIPLE CHOICE =====================
-function showMC() {
-  if (idx >= deck.length) { showDone(); return; }
-  const card = deck[idx];
-  document.getElementById('mc-counter').textContent = `문제 ${idx + 1} / ${deck.length}`;
-  document.getElementById('mc-question').textContent = card.word;
-  document.getElementById('mc-context').textContent = card.example || '';
-  document.getElementById('mc-next').style.display = 'none';
-
-  // Generate 4 options including correct
-  const others = QUIZ_DATA.filter(d => d.meaning !== card.meaning);
-  const wrongOpts = shuffle(others).slice(0, 3).map(d => d.meaning);
-  const options = shuffle([card.meaning, ...wrongOpts]);
-
-  const container = document.getElementById('mc-options');
-  container.innerHTML = '';
-  options.forEach(opt => {
-    const btn = document.createElement('button');
-    btn.className = 'mc-option';
-    btn.textContent = opt;
-    btn.onclick = () => selectMC(btn, opt, card.meaning);
-    container.appendChild(btn);
-  });
-}
-
-function selectMC(btn, selected, correct) {
-  document.querySelectorAll('.mc-option').forEach(b => { b.disabled = true; });
-  if (selected === correct) {
-    btn.classList.add('correct');
-    rightCount++;
-  } else {
-    btn.classList.add('wrong');
-    wrongCount++;
-    document.querySelectorAll('.mc-option').forEach(b => {
-      if (b.textContent === correct) b.classList.add('correct');
-    });
-  }
-  idx++;
-  updateScoreBar();
-  const nextBtn = document.getElementById('mc-next');
-  nextBtn.style.display = 'inline-block';
-  nextBtn.textContent = idx >= deck.length ? '결과 보기 →' : '다음 문제 →';
-}
-
-function nextMC() {
-  if (idx >= deck.length) { showDone(); return; }
-  showMC();
+  showSubj();
 }
 
 // ===================== SCORE & DONE =====================
@@ -733,8 +746,7 @@ function updateScoreBar() {
 }
 
 function showDone() {
-  document.getElementById('flash-mode').classList.add('hidden');
-  document.getElementById('mc-mode').classList.add('hidden');
+  document.getElementById('subj-mode').classList.add('hidden');
   document.getElementById('quiz-done').classList.remove('hidden');
   const total = rightCount + wrongCount;
   const pct = total > 0 ? Math.round((rightCount / total) * 100) : 0;
